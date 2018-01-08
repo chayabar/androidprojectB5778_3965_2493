@@ -42,6 +42,7 @@ public class MainNavigationActivity extends AppCompatActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
     }
 
@@ -83,17 +84,15 @@ public class MainNavigationActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_contactUs) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_branches) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_reserveAcar) {
 
-        } else if (id == R.id.nav_manage) {
+        } else if (id == R.id.nav_yourReservation) {
 
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_disconnect) {
 
         }
 
