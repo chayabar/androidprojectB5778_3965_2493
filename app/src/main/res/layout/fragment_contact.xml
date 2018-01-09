@@ -1,0 +1,90 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.owner.second_application_java2018.fragment.ContactFragment"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="225dp"
+        android:background="@android:color/transparent"
+        android:text="@string/multiplelinesWebsite"
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+        android:textColor="@color/button_text"
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="304dp"
+        android:layout_marginRight="294dp"
+        android:layout_marginTop="223dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_website" />
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="129dp"
+        android:background="@android:color/transparent"
+        android:text="@string/multiplelinesEmail"
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+        android:textColor="@color/button_text"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="304dp"
+        android:layout_marginRight="304dp"
+        android:layout_marginTop="129dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_email" />
+
+    <Button
+        android:id="@+id/button7"
+        android:layout_width="291dp"
+        android:layout_height="61dp"
+        android:layout_marginTop="46dp"
+        android:background="@android:color/transparent"
+        android:text="@string/multiplelinesPhone"
+        android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+        android:textColor="@color/button_text"
+        app:layout_constraintHorizontal_bias="0.967"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
+        android:id="@+id/imageButton3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="304dp"
+        android:layout_marginRight="304dp"
+        android:layout_marginTop="46dp"
+        android:background="@android:color/transparent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_phone" />
+
+</android.support.constraint.ConstraintLayout>
