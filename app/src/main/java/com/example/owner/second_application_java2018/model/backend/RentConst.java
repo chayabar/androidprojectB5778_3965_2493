@@ -1,4 +1,4 @@
-package com.example.owner.second_application_java2018.model.datasource;
+package com.example.owner.second_application_java2018.model.backend;
 
 import android.content.ContentValues;
 

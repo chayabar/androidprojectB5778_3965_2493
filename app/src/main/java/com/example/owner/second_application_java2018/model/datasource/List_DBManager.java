@@ -15,12 +15,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.ContentValuesToBranch;
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.ContentValuesToCar;
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.ContentValuesToCarModel;
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.ContentValuesToCustomer;
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.ContentValuesToOrder;
-import static com.example.owner.second_application_java2018.model.datasource.RentConst.OrderToContentValues;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToBranch;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCar;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCarModel;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCustomer;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToOrder;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.OrderToContentValues;
 
 
 /**
