@@ -12,9 +12,7 @@ import android.view.ViewGroup;
 
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.fragment.dummy.DummyContent;
-import com.example.owner.second_application_java2018.fragment.dummy.DummyContent.DummyItem;
-
-import java.util.List;
+import com.example.owner.second_application_java2018.model.entities.Branch;
 
 /**
  * A fragment representing a list of Items.
@@ -105,6 +103,6 @@ public class BranchFragment extends Fragment {
      */
     public interface OnListFragmentInteractionListener {
         // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
+        void onListFragmentInteraction(Branch item);
     }
 }
