@@ -16,7 +16,7 @@ import com.example.owner.second_application_java2018.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ContactFragment extends Fragment implements View.OnClickListener {
+public class ContactFragment extends Fragment implements View.OnClickListener  {
 
 
     public ContactFragment() {
@@ -25,10 +25,23 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View rootView= inflater.inflate(R.layout.fragment_contact, container, false);
+        phoneButton = (Button)rootView.findViewById( R.id.phoneButton );
+        phoneImageButton = (ImageButton)rootView.findViewById( R.id.phoneImageButton );
+        emailButton = (Button)rootView.findViewById( R.id.emailButton );
+        emailImageButton = (ImageButton)rootView.findViewById( R.id.emailImageButton );
+        websiteButton = (Button)rootView.findViewById( R.id.websiteButton );
+        websiteImageButton = (ImageButton)rootView.findViewById( R.id.websiteImageButton );
+
+        phoneButton.setOnClickListener( this );
+        phoneImageButton.setOnClickListener( this );
+        emailButton.setOnClickListener( this );
+        emailImageButton.setOnClickListener( this );
+        websiteButton.setOnClickListener( this );
+        websiteImageButton.setOnClickListener( this );
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_contact, container, false);
+        return rootView;
     }
     private Button phoneButton;
     private ImageButton phoneImageButton;

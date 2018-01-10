@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.owner.second_application_java2018.R;
+import com.example.owner.second_application_java2018.fragment.BranchFragment;
 import com.example.owner.second_application_java2018.fragment.ContactFragment;
 
 
@@ -94,7 +95,12 @@ public class MainNavigationActivity extends AppCompatActivity
              ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
+
         } else if (id == R.id.nav_branches) {
+            fragment = new BranchFragment();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_reserveAcar) {
 
@@ -106,6 +112,7 @@ public class MainNavigationActivity extends AppCompatActivity
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
+
         return true;
     }
 }
