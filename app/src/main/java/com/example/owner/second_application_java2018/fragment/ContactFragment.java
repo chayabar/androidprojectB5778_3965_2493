@@ -78,7 +78,18 @@ public class ContactFragment extends Fragment implements View.OnClickListener {
             // Handle clicks for emailButton
         } else if ( v == emailImageButton ) {
             // Handle clicks for emailImageButton
-        } else if ( v == websiteButton ) {
+            String to="sarush1111@gmail.com";
+
+            Intent email = new Intent(Intent.ACTION_SEND);
+            email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+
+            //need this to prompts email client only
+            email.setType("message/rfc822");
+
+            startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
+        }
+          else if ( v == websiteButton ) {
             // Handle clicks for websiteButton
         } else if ( v == websiteImageButton ) {
             // Handle clicks for websiteImageButton

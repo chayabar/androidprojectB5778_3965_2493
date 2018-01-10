@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.fragment.dummy.DummyContent;
+//import com.example.owner.second_application_java2018.fragment.dummy.DummyContent;
 import com.example.owner.second_application_java2018.model.entities.Branch;
 
 /**
@@ -68,7 +68,7 @@ public class BranchFragment extends Fragment {
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
-            recyclerView.setAdapter(new MyBranchRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+          //  recyclerView.setAdapter(new MyBranchRecyclerViewAdapter(DummyContent.ITEMS, mListener));
         }
         return view;
     }
