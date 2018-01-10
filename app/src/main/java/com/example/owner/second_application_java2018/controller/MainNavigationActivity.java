@@ -16,8 +16,8 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.fragment.BranchFragment;
 import com.example.owner.second_application_java2018.fragment.ContactFragment;
+import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 
 
 public class MainNavigationActivity extends AppCompatActivity
@@ -97,7 +97,7 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_branches) {
-            fragment = new BranchFragment();
+            fragment = new FragmentBranches();
             ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
