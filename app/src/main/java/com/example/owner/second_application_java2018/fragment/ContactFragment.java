@@ -84,8 +84,10 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
             // Handle clicks for phoneButton
         } else if ( v == phoneImageButton ) {
             // Handle clicks for phoneImageButton
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:0525857646"));
+            //Intent callIntent = new Intent(Intent.ACTION_CALL);
+            //callIntent.setData(Uri.parse("tel:0585840067"));
+            Uri number=Uri.parse("tel:0585840067");
+            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
             startActivity(callIntent);
         } else if ( v == emailButton ) {
             // Handle clicks for emailButton
