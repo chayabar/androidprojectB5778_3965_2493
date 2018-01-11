@@ -1,4 +1,4 @@
-/*
+
 package com.example.owner.second_application_java2018.model.datasource;
 
 import android.content.ContentValues;
@@ -9,6 +9,7 @@ import com.example.owner.second_application_java2018.model.entities.Branch;
 import com.example.owner.second_application_java2018.model.entities.Car;
 import com.example.owner.second_application_java2018.model.entities.CarModel;
 import com.example.owner.second_application_java2018.model.entities.Customer;
+import com.example.owner.second_application_java2018.model.entities.Enums;
 import com.example.owner.second_application_java2018.model.entities.Order;
 
 import org.json.JSONArray;
@@ -16,14 +17,14 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCustomer;
 
-*/
 /**
  * Created by owner on 22/12/2017.
- *//*
+ */
 
 
 public class MySQL_DBManager implements DB_manager {
@@ -135,13 +136,12 @@ public class MySQL_DBManager implements DB_manager {
         }
     }
 
-
     @Override
     public List<Customer> getCustomers()
     {    
         List<Customer> result = new ArrayList<Customer>();
         try {
-            String str = PHPtools.GET(WEB_URL + "/customers.php"); 
+            String str = PHPtools.GET(WEB_URL + "/customers.php");
             JSONArray array = new JSONObject(str).getJSONArray("customers");
             for (int i = 0; i < array.length(); i++)
             {            
@@ -245,6 +245,96 @@ public class MySQL_DBManager implements DB_manager {
         return null;
     }
 
-    
+    @Override
+    public boolean updateCar(int id,ContentValues values) {
+        /*Car car = ContentValuesToCar(values);
+        car.setCarNumber(id);
+        for (int i = 0; i < getCars().size(); i++)
+            if (cars.get(i).getCarNumber()== id) {
+                cars.set(i, car);
+                return true;
+            }*/
+        return false;
+    }
+
+    @Override
+    public List<Car> getAvailableCars() {
+        /** This method is used to check which cars are available for rent.
+         * @return list of cars.
+         */
+        List<Car> AvailableCars= getCars();
+        for (final Order item : getOrders())
+            if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
+                // AvailableCars.removeIf(p -> p.getCarNumber()== item.getCarNumber());///?????????????????????????????????
+                Car c=getCarByID(item.getCarNumber());
+                AvailableCars.remove(c);
+            }
+        return AvailableCars;
+    }
+
+    @Override
+    public List<Car> getAvailableCarsByBranch(int branchNumber) {
+        /**This method is used to check which cars are available for rent at a particular branch.
+         * @return list of cars.
+         */
+        List<Car> AvailableCars=null;
+        for (Car item : getCars())
+            if (item.getHouseBranch()==branchNumber) {
+                AvailableCars.add(item);
+            }
+        return AvailableCars;
+    }
+
+    @Override
+    public List<Order> getOpenOrders() {
+        /**This method is used to check which order is open,
+         * ie the vehicle is still leased.
+         * @return list of orders
+         */
+        List<Order> OpenOrders= null;
+        for (Order item : getOrders())
+            if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
+                OpenOrders.add(item);
+            }
+        return OpenOrders;
+    }
+
+    private Order getOrderByID( int orderID)
+    {
+        for(Order o : getOrders())
+        {
+            if(o.getOrderID()==orderID)
+                return o;
+        }
+        return null;
+    }
+
+    private Car getCarByID( int carID)
+    {
+        for(Car c : getCars())
+        {
+            if(c.getCarNumber()==carID)
+                return c;
+        }
+        return null;
+    }
+
+    public void closeExistOrder(int orderId, float km)
+    {
+        Order order=getOrderByID(orderId);
+        if (order!= null)
+        {
+            order.setEndMileAge(km);
+            order.setEndRent(new Date());
+            float chargePerMin=(float)0.1;
+            float chargePerKM=(float)0.6;
+            float calculateCharge=chargePerMin* (order.getStartRent().getTime()- order.getEndRent().getTime())
+                    +chargePerKM*(order.getStartMileAge()-order.getEndMileAge());
+            order.setCharge(calculateCharge);
+            order.setOrderStatus(Enums.OrderStatus.CLOSE);
+
+            //updateOrder(order.getOrderID(), OrderToContentValues(order));
+        }
+    }
 }
-*/
+

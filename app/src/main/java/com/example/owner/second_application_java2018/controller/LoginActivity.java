@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.owner.second_application_java2018.R;
+
 //  yishar koach!
 public class LoginActivity extends Activity implements View.OnClickListener {
 
@@ -18,6 +19,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViews();
+
+        /*final ContentValues contentValues = new ContentValues();
+        contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
+        contentValues.put(RentConst.BranchConst.PARKINGSPACES, "3");
+        contentValues.put(RentConst.BranchConst.ADDRESS, "kanfei nesharim 12, jerusalem, Israel");
+        DBManagerFactory.getManager().addBranch(contentValues);*/
+
     }
 
     private EditText passwordEditText;

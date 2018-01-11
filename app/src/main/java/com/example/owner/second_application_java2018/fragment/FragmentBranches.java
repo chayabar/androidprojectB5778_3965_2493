@@ -11,13 +11,11 @@ import android.widget.ExpandableListView;
 import android.widget.SearchView;
 import android.widget.Toast;
 
-
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.entities.Branch;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -102,7 +100,5 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
         expandableListView.setAdapter(adapterExList);
         return false;
     }
-
-
 
 }
