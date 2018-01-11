@@ -7,7 +7,6 @@ import com.example.owner.second_application_java2018.fragment.MyexpandableListAd
 import com.example.owner.second_application_java2018.model.entities.Branch;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by User on 31/01/2017.
@@ -16,7 +15,7 @@ import java.util.List;
 public class ExpandableDataFilter extends Filter
 {
     DB_manager manager= DBManagerFactory.getManager();
-    public List<Branch> branches =manager.getBranchs();
+    public ArrayList<Branch> branches =manager.getBranchs();
     //public ArrayList<Activity> activities=manager.getListOfActivities();
     String type;
     MyexpandableListAdepter adapter;
@@ -34,7 +33,7 @@ public class ExpandableDataFilter extends Filter
         String query= String.valueOf(constraint);
         FilterResults results = new FilterResults();
         // We implement here the filter logic
-        if(type.compareTo("branches")==0)
+        if(type.compareTo("Branches")==0)
         {
             branches =manager.getBranchs();
             if (constraint == null || constraint.length() == 0) {
@@ -44,7 +43,7 @@ public class ExpandableDataFilter extends Filter
             } else
             {
                 // We perform filtering operation
-                List<Branch> nBranchesList = new ArrayList<Branch>();
+                ArrayList<Branch> nBranchesList = new ArrayList<Branch>();
 
                 for (Branch b : branches)
                 {
@@ -84,7 +83,7 @@ public class ExpandableDataFilter extends Filter
     @Override
     protected void publishResults(CharSequence constraint, FilterResults results)
     {
-        if(type.compareTo("branches")==0) {
+        if(type.compareTo("Branches")==0) {
             branches = (ArrayList<Branch>) results.values;
         }else {
             if (type.compareTo("travels") == 0) {
@@ -102,9 +101,4 @@ public class ExpandableDataFilter extends Filter
             adapter.notifyDataSetChanged();
         }
     }
-
-
-
-
-
 }

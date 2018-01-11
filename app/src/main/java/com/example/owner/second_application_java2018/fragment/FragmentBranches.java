@@ -14,9 +14,6 @@ import android.widget.Toast;
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
-import com.example.owner.second_application_java2018.model.entities.Branch;
-
-import java.util.List;
 
 /**
  * Created by User on 10/01/2018.
@@ -24,37 +21,15 @@ import java.util.List;
 
 public class FragmentBranches extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener
 {
-    DB_manager manager= DBManagerFactory.getManager();
     SearchView searchView;
 
-    // declare array List for all headers in list
-    final List<Branch> headersArrayList = manager.getBranchs();  //MAYBE NEED TO BE ARRAYLIST?????????
     MyexpandableListAdepter adapterExList;
     private ExpandableListView expandableListView;
+    DB_manager manager= DBManagerFactory.getManager();
 
     public FragmentBranches() {
         // Required empty public constructor
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        try
-        {
-            if (!isNetworkConnected())
-                throw new Exception("The application must have internet connection");
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
-    }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -75,7 +50,27 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
         searchView.setOnCloseListener(this);
 
 
+
         return rootView;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        try
+        {
+            if (!isNetworkConnected())
+                throw new Exception("The application must have internet connection");
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
     }
 
     @Override

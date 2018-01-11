@@ -13,7 +13,6 @@ import com.example.owner.second_application_java2018.model.entities.Order;
 
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToBranch;
 import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCar;
@@ -28,11 +27,11 @@ import static com.example.owner.second_application_java2018.model.backend.RentCo
  */
 
 public class List_DBManager implements DB_manager {
-    public static List<Customer> customers;
-    public static List<Car> cars;
-    public static List<CarModel> carModels;
-    public static List<Branch> branchs;
-    public static List<Order> orders;
+    public static ArrayList<Customer> customers;
+    public static ArrayList<Car> cars;
+    public static ArrayList<CarModel> carModels;
+    public static ArrayList<Branch> branchs;
+    public static ArrayList<Order> orders;
     static {
         customers = new ArrayList<>();
         cars = new ArrayList<>();
@@ -222,36 +221,36 @@ public class List_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Customer> getCustomers() {
+    public ArrayList<Customer> getCustomers() {
         return customers;
     }
 
     @Override
-    public List<Car> getCars() {
+    public ArrayList<Car> getCars() {
         return cars;
     }
 
     @Override
-    public List<CarModel> getCarModels() {
+    public ArrayList<CarModel> getCarModels() {
         return carModels;
     }
 
     @Override
-    public List<Branch> getBranchs() {
+    public ArrayList<Branch> getBranchs() {
         return branchs;
     }
 
     @Override
-    public List<Order> getOrders() {
+    public ArrayList<Order> getOrders() {
         return orders;
     }
 
     @Override
-    public List<Car> getAvailableCars() {
+    public ArrayList<Car> getAvailableCars() {
         /** This method is used to check which cars are available for rent.
          * @return list of cars.
          */
-        List<Car> AvailableCars= getCars();
+        ArrayList<Car> AvailableCars= getCars();
         for (final Order item : getOrders())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                // AvailableCars.removeIf(p -> p.getCarNumber()== item.getCarNumber());///?????????????????????????????????
@@ -262,11 +261,11 @@ public class List_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Car> getAvailableCarsByBranch(int branchNumber) {
+    public ArrayList<Car> getAvailableCarsByBranch(int branchNumber) {
         /**This method is used to check which cars are available for rent at a particular branch.
          * @return list of cars.
          */
-        List<Car> AvailableCars=null;
+        ArrayList<Car> AvailableCars=null;
         for (Car item : cars)
             if (item.getHouseBranch()==branchNumber) {
                 AvailableCars.add(item);
@@ -275,12 +274,12 @@ public class List_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Order> getOpenOrders() {
+    public ArrayList<Order> getOpenOrders() {
         /**This method is used to check which order is open,
          * ie the vehicle is still leased.
          * @return list of orders
          */
-        List<Order> OpenOrders= null;
+        ArrayList<Order> OpenOrders= null;
         for (Order item : orders)
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 OpenOrders.add(item);

@@ -18,7 +18,6 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCustomer;
 
@@ -137,9 +136,9 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Customer> getCustomers()
+    public ArrayList<Customer> getCustomers()
     {    
-        List<Customer> result = new ArrayList<Customer>();
+        ArrayList<Customer> result = new ArrayList<Customer>();
         try {
             String str = PHPtools.GET(WEB_URL + "/customers.php");
             JSONArray array = new JSONObject(str).getJSONArray("customers");
@@ -159,9 +158,9 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<CarModel> getCarModels()
+    public ArrayList<CarModel> getCarModels()
     {
-        List<CarModel> result = new ArrayList<CarModel>();
+        ArrayList<CarModel> result = new ArrayList<CarModel>();
         try {
             String str = PHPtools.GET(WEB_URL + "/carModels.php");
             JSONArray array = new JSONObject(str).getJSONArray("carModels");
@@ -181,9 +180,9 @@ public class MySQL_DBManager implements DB_manager {
     }
     
     @Override
-    public List<Car> getCars()
+    public ArrayList<Car> getCars()
     {
-        List<Car> result = new ArrayList<Car>();
+        ArrayList<Car> result = new ArrayList<Car>();
         try {
             String str = PHPtools.GET(WEB_URL + "/cars.php");
             JSONArray array = new JSONObject(str).getJSONArray("cars");
@@ -202,9 +201,9 @@ public class MySQL_DBManager implements DB_manager {
         return null;
     }
     @Override
-    public List<Branch> getBranchs()
+    public ArrayList<Branch> getBranchs()
     {
-        List<Branch> result = new ArrayList<Branch>();
+        ArrayList<Branch> result = new ArrayList<Branch>();
         try {
             String str = PHPtools.GET(WEB_URL + "/branchs.php");
             JSONArray array = new JSONObject(str).getJSONArray("branchs");
@@ -224,9 +223,9 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Order> getOrders()
+    public ArrayList<Order> getOrders()
     {
-        List<Order> result = new ArrayList<Order>();
+        ArrayList<Order> result = new ArrayList<Order>();
         try {
             String str = PHPtools.GET(WEB_URL + "/orders.php");
             JSONArray array = new JSONObject(str).getJSONArray("orders");
@@ -258,11 +257,11 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Car> getAvailableCars() {
+    public ArrayList<Car> getAvailableCars() {
         /** This method is used to check which cars are available for rent.
          * @return list of cars.
          */
-        List<Car> AvailableCars= getCars();
+        ArrayList<Car> AvailableCars= getCars();
         for (final Order item : getOrders())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 // AvailableCars.removeIf(p -> p.getCarNumber()== item.getCarNumber());///?????????????????????????????????
@@ -273,11 +272,11 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Car> getAvailableCarsByBranch(int branchNumber) {
+    public ArrayList<Car> getAvailableCarsByBranch(int branchNumber) {
         /**This method is used to check which cars are available for rent at a particular branch.
          * @return list of cars.
          */
-        List<Car> AvailableCars=null;
+        ArrayList<Car> AvailableCars=null;
         for (Car item : getCars())
             if (item.getHouseBranch()==branchNumber) {
                 AvailableCars.add(item);
@@ -286,12 +285,12 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public List<Order> getOpenOrders() {
+    public ArrayList<Order> getOpenOrders() {
         /**This method is used to check which order is open,
          * ie the vehicle is still leased.
          * @return list of orders
          */
-        List<Order> OpenOrders= null;
+        ArrayList<Order> OpenOrders= null;
         for (Order item : getOrders())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 OpenOrders.add(item);

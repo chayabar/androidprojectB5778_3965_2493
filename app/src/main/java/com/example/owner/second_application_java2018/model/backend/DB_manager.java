@@ -8,7 +8,7 @@ import com.example.owner.second_application_java2018.model.entities.CarModel;
 import com.example.owner.second_application_java2018.model.entities.Customer;
 import com.example.owner.second_application_java2018.model.entities.Order;
 
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  * Created by שרה  on 30/12/2017.
@@ -39,13 +39,13 @@ public interface DB_manager {
 
 
 
-    List<Customer> getCustomers();
-    List<Car> getCars();
-    List<CarModel> getCarModels();
-    List<Branch> getBranchs();
-    List<Order> getOrders();
-    List<Car> getAvailableCars();
-    List<Car> getAvailableCarsByBranch(int branchNumber);
-    List<Order> getOpenOrders();
+    ArrayList<Customer> getCustomers();
+    ArrayList<Car> getCars();
+    ArrayList<CarModel> getCarModels();
+    ArrayList<Branch> getBranchs();
+    ArrayList<Order> getOrders();
+    ArrayList<Car> getAvailableCars();
+    ArrayList<Car> getAvailableCarsByBranch(int branchNumber);
+    ArrayList<Order> getOpenOrders();
 
 }

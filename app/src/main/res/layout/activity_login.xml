@@ -7,6 +7,20 @@
     tools:context="com.example.owner.second_application_java2018.controller.LoginActivity">
 
     <EditText
+        android:id="@+id/userNameEditText"
+        android:layout_width="299dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="user name"
+        android:inputType="textPersonName"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
+        android:layout_marginEnd="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="8dp" />
+
+    <EditText
         android:id="@+id/passwordEditText"
         android:layout_width="0dp"
         android:layout_height="44dp"
@@ -25,19 +39,6 @@
         app:layout_constraintLeft_toLeftOf="@+id/userNameEditText"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/userNameEditText"
-        android:layout_width="299dp"
-        android:layout_height="47dp"
-        android:ems="10"
-        android:hint="user name"
-        android:inputType="textPersonName"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/passwordEditText"
-        android:layout_marginEnd="10dp"
-        app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="8dp" />
 
     <Button
         android:id="@+id/loginButton"
