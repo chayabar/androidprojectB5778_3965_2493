@@ -81,14 +81,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
     @Override
     public void onClick(View v) {
         if ( v == phoneButton ) {
-            // Handle clicks for phoneButton
+            phoneCall();
         } else if ( v == phoneImageButton ) {
-            // Handle clicks for phoneImageButton
-            //Intent callIntent = new Intent(Intent.ACTION_CALL);
-            //callIntent.setData(Uri.parse("tel:0585840067"));
-            Uri number=Uri.parse("tel:0585840067");
-            Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
-            startActivity(callIntent);
+            phoneCall();
         } else if ( v == emailButton ) {
             // Handle clicks for emailButton
         } else if ( v == emailImageButton ) {
@@ -111,6 +106,12 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
         }
     }
 
-
+public void phoneCall()
+{
+    Uri number=Uri.parse("tel:0585840067");
+    Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
+    startActivity(callIntent);
+    return;
+}
 
 }

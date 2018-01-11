@@ -10,7 +10,7 @@
     <!-- TODO: Update blank fragment layout -->
 
     <Button
-        android:id="@+id/phoneButton"
+        android:id="@+id/websiteButton"
         android:layout_width="291dp"
         android:layout_height="61dp"
         android:layout_marginTop="225dp"
@@ -62,7 +62,7 @@
         app:srcCompat="@drawable/ic_email" />
 
     <Button
-        android:id="@+id/websiteButton"
+        android:id="@+id/phoneButton"
         android:layout_width="291dp"
         android:layout_height="61dp"
         android:layout_marginTop="46dp"
