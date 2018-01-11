@@ -16,7 +16,7 @@ import com.example.owner.second_application_java2018.model.backend.DBManagerFact
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 
 /**
- * Created by User on 10/01/2018 .
+ * Created by User on 10/01/2018.
  */
 
 public class FragmentBranches extends Fragment implements SearchView.OnQueryTextListener, SearchView.OnCloseListener
