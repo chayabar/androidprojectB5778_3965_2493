@@ -20,6 +20,8 @@ import android.widget.Toast;
 
 
 import com.example.owner.second_application_java2018.R;
+import com.example.owner.second_application_java2018.model.backend.ArrayDataFilter;
+import com.example.owner.second_application_java2018.model.backend.ExpandableDataFilter;
 import com.example.owner.second_application_java2018.model.datasource.List_DBManager;
 import com.example.owner.second_application_java2018.model.entities.Branch;
 
@@ -32,25 +34,24 @@ import java.util.List;
 
 public class MyexpandableListAdepter extends BaseExpandableListAdapter implements Filterable,View.OnClickListener {
 
-    //ArrayDataFilter df;
-    //ExpandableDataFilter edf;
+    ArrayDataFilter df;
+    ExpandableDataFilter edf;
     List_DBManager manager = new List_DBManager();
     private ExpandableListView expandableListView;
     private List<Branch> tempBranch;
-    //private ArrayList<Activity> tempActi;
+   // private ArrayList<Activity> tempActi;
     android.app.Activity activity;
-    ArrayAdapter<String> adapterBranches;
+    ArrayAdapter<String> adapterActivities;
     private String mType;
 
-
-  /*  private Button b_adress;
+    private Button b_adress;
     private Button b_phone;
     private Button b_email;
     private Button b_website;
     private TextView email;
     private TextView phone;
     private TextView adress;
-    private TextView website;*/
+    private TextView website;
 
 
     public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, android.app.Activity mactivity)
@@ -58,7 +59,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         mType=type;
         expandableListView = myExpandableListView;
         activity = mactivity;
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo("branches")==0)
         {
             tempBranch = manager.getBranchs();
         }
@@ -73,12 +74,12 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     @Override
     public int getGroupCount()
     {
-        int returndItem=0;
-        if(mType.compareTo("Branches")==0)
+        int returndItem=0;///delete =0
+        if(mType.compareTo("agencies")==0)
         {
             returndItem= tempBranch.size();
         }
-/*        else//if(mType.compareTo("travels")==0)
+        /*else//if(mType.compareTo("travels")==0)
         {
             returndItem= tempActi.size();
         }*/
@@ -122,19 +123,19 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
         View header;
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo("branches")==0)
         {
 
             header = activity.getLayoutInflater().inflate(R.layout.header_branch, parent, false);
             Branch b = tempBranch.get(groupPosition);
-            TextView name = (TextView) header.findViewById(R.id.name_agency);
+            TextView address = (TextView) header.findViewById(R.id.branchAddressTextView);
 
-            name.setText(b.getBusinessName());
-            TextView country = (TextView) header.findViewById(R.id.country_agency);
-            country.setText(b.getBusinessAdress().getCountry());
+            address.setText(b.getAddress());
+            TextView parking = (TextView) header.findViewById(R.id.parkingNumTextView);
+            parking.setText(b.getParkingSpaces());
         }
         else {
-            if (mType.compareTo("travels") == 0) {
+            /*if (mType.compareTo("travels") == 0) {
                 header = activity.getLayoutInflater().inflate(R.layout.header_travel, parent, false);
                 Activity a = tempActi.get(groupPosition);
                 TextView desc = (TextView) header.findViewById(R.id.desc_travel);
@@ -142,7 +143,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 TextView startDate = (TextView) header.findViewById(R.id.start_date_travel);
                 java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
                 startDate.setText(sdf.format(a.getActivityStartDate()));
-            } else {
+            } else*/ {
                 header = null;
             }
         }
@@ -155,11 +156,11 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
         View item;
 
-        if(mType.compareTo("agencies")==0)
+       /* if(mType.compareTo("branches")==0)
         {
 
-            item= activity.getLayoutInflater().inflate(R.layout.fragment_item_agency, parent, false);
-            final Business b = tempBusi.get(groupPosition);
+            item= activity.getLayoutInflater().inflate(R.layout.fragment_item_branch, parent, false);
+            final Branch b = tempBranch.get(groupPosition);
 
 
             TextView name = (TextView) item.findViewById(R.id.name);
@@ -194,10 +195,10 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                  namesA.add(a.getActivityDescription());
 
             final Context context = activity.getApplicationContext();
-            adapterBranches = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, namesA);
+            adapterActivities = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, namesA);
 
 
-            listTravel.setAdapter(adapterBranches);
+            listTravel.setAdapter(adapterActivities);
             setListViewHeightBasedOnChildren(listTravel);
 
         }
@@ -239,8 +240,8 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             } else {
                 item = null;
             }
-        }
-        return item;
+        }*/
+        return item=null;//delete = null
 
 
 
@@ -258,9 +259,9 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     {
         if (edf == null)
         {
-            if(mType.compareTo("agencies")==0)
+            if(mType.compareTo("branches")==0)
             {
-                edf = new ExpandableDataFilter("agencies", this);
+                edf = new ExpandableDataFilter("branches", this);
             }
             if(mType.compareTo("travels")==0)
             {
@@ -276,12 +277,12 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         super.notifyDataSetChanged();
         if(mType.compareTo("agencies")==0)
         {
-            tempBusi = edf.businesses;
+            tempBranch = edf.branches;
         }
-        if(mType.compareTo("travels")==0)
+        /*if(mType.compareTo("travels")==0)
         {
             tempActi=edf.activities;
-        }
+        }*/
 
     }
 
@@ -292,12 +293,12 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         super.notifyDataSetInvalidated();
         if(mType.compareTo("agencies")==0)
         {
-            tempBusi = edf.businesses;
+            tempBranch = edf.branches;
         }
-        if(mType.compareTo("travels")==0)
+        /*if(mType.compareTo("travels")==0)
         {
             tempActi=edf.activities;
-        }
+        }*/
         Toast.makeText(this.activity,"no found results", Toast.LENGTH_LONG).show();
     }
 

@@ -31,7 +31,7 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
 
     // declare array List for all headers in list
     final List<Branch> headersArrayList = manager.getBranchs();  //MAYBE NEED TO BE ARRAYLIST?????????
-    //MyexpandableListAdepter adapterExList;
+    MyexpandableListAdepter adapterExList;
     private ExpandableListView expandableListView;
 
     public FragmentBranches() {

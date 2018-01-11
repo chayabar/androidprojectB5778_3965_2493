@@ -6,21 +6,20 @@
     android:background="@android:color/darker_gray">
 
     <TextView
-        android:id="@+id/desc_travel"
+        android:id="@+id/branchAddressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:text="description travel"
+        android:text="Address "
         android:textAlignment="viewStart"
         android:textSize="20sp" />
 
     <TextView
-        android:text="start date travel"
+        android:id="@+id/parkingNumTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/start_date_travel"
-        android:layout_weight="1"
-        android:textSize="20sp"
-        android:textAlignment="viewEnd" />
+        android:text="Number of parking spaces "
+        android:textAlignment="viewEnd"
+        android:textSize="20sp" />
 
 </LinearLayout>
