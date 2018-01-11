@@ -26,6 +26,10 @@
             android:name=".controller.MainNavigationActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
+        <activity
+            android:name=".fragment.WebViewActivity"
+            android:label="@string/title_activity_web_view"
+            android:theme="@style/AppTheme.NoActionBar" />
 
     </application>
 

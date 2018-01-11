@@ -8,6 +8,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_web_view">WebViewActivity</string>
+
 
     <string name="multiplelinesPhone">Phone number \n052-5857646</string>
     <string name="multiplelinesEmail">Email \nsarush1111@gmail.com</string>
