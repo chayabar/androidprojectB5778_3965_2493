@@ -19,7 +19,7 @@ public class WebViewActivity extends Activity {
         setContentView(R.layout.activity_web_view);
         webView= (WebView) findViewById(R.id.web_view);
         webView.getSettings().setJavaScriptEnabled(true);
-        webView.loadUrl("http://www.carrentals.com");
+        webView.loadUrl("http://www.rentalcars.com");
     }
 
 
