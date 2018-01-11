@@ -100,9 +100,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
 
         }
           else if ( v == websiteButton ) {
-            // Handle clicks for websiteButton
+            websiteView();
         } else if ( v == websiteImageButton ) {
-            // Handle clicks for websiteImageButton
+            websiteView();
         }
     }
 
@@ -112,6 +112,11 @@ public void phoneCall()
     Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
     startActivity(callIntent);
     return;
+}
+public void websiteView()
+{
+    Intent intent=new Intent(getActivity(),WebViewActivity.class);
+    startActivity(intent);
 }
 
 }
