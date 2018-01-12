@@ -32,6 +32,25 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
     }
 
     @Override
+    public void onStart() {
+        super.onStart();
+        try
+        {
+            if (!isNetworkConnected())
+                throw new Exception("The application must have internet connection");
+        }
+        catch (Exception e)
+        {
+            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private boolean isNetworkConnected() {
+        ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+        return cm.getActiveNetworkInfo() != null;
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         final Context context = getActivity().getApplicationContext();
@@ -52,25 +71,6 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
 
 
         return rootView;
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        try
-        {
-            if (!isNetworkConnected())
-                throw new Exception("The application must have internet connection");
-        }
-        catch (Exception e)
-        {
-            Toast.makeText(getActivity(), e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-    }
-
-    private boolean isNetworkConnected() {
-        ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
-        return cm.getActiveNetworkInfo() != null;
     }
 
     @Override
