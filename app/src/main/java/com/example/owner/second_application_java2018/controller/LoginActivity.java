@@ -1,7 +1,6 @@
 package com.example.owner.second_application_java2018.controller;
 
 import android.app.Activity;
-import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
-import com.example.owner.second_application_java2018.model.backend.RentConst;
 
 //  yishar koach!
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -23,11 +20,11 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         setContentView(R.layout.activity_login);
         findViews();
 
-        final ContentValues contentValues = new ContentValues();
+        /*final ContentValues contentValues = new ContentValues();
         contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
         contentValues.put(RentConst.BranchConst.PARKINGSPACES, "3");
         contentValues.put(RentConst.BranchConst.ADDRESS, "kanfei nesharim 12, jerusalem, Israel");
-        DBManagerFactory.getManager().addBranch(contentValues);
+        DBManagerFactory.getManager().addBranch(contentValues);*/
 
     }
 

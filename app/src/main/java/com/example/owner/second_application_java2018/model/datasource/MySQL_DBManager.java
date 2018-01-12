@@ -2,6 +2,7 @@
 package com.example.owner.second_application_java2018.model.datasource;
 
 import android.content.ContentValues;
+import android.os.AsyncTask;
 
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.backend.RentConst;
@@ -27,6 +28,7 @@ import static com.example.owner.second_application_java2018.model.backend.RentCo
 
 
 public class MySQL_DBManager implements DB_manager {
+    final ArrayList<Branch> result = new ArrayList<Branch>();
 
     private String WEB_URL = "http://avichzer.vlab.jct.ac.il/rentPHP";
 
@@ -203,7 +205,43 @@ public class MySQL_DBManager implements DB_manager {
     @Override
     public ArrayList<Branch> getBranchs()
     {
-        ArrayList<Branch> result = new ArrayList<Branch>();
+        if(!result.isEmpty())
+        {
+            return result;
+        }
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void  doInBackground(Void... params)
+            {
+                try {
+                    try {
+                        String str = PHPtools.GET(WEB_URL + "/branchs.php");
+                        JSONArray array = new JSONObject(str).getJSONArray("branchs");
+                        for (int i = 0; i < array.length(); i++)
+                        {
+                            JSONObject jsonObject = array.getJSONObject(i);
+                            ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                            Branch branch = RentConst.ContentValuesToBranch(contentValues);
+                            result.add(branch);
+                        }
+                    }
+                    catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    //Toast.makeText(this, "failed ",Toast.LENGTH_LONG).show();
+
+                }
+
+                return null;
+            }
+
+        }.execute();
+        return result;
+
+        /*ArrayList<Branch> result = new ArrayList<Branch>();
         try {
             String str = PHPtools.GET(WEB_URL + "/branchs.php");
             JSONArray array = new JSONObject(str).getJSONArray("branchs");
@@ -219,7 +257,7 @@ public class MySQL_DBManager implements DB_manager {
         catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return null;*/
     }
 
     @Override
