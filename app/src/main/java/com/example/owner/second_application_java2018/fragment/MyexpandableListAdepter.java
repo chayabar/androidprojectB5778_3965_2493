@@ -124,7 +124,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
             address.setText(b.getAddress());
             TextView parking = (TextView) header.findViewById(R.id.parkingNumTextView);
-            parking.setText(b.getParkingSpaces());
+            parking.setText(String.valueOf(b.getParkingSpaces()));
         }
         else {
             /*if (mType.compareTo("travels") == 0) {
