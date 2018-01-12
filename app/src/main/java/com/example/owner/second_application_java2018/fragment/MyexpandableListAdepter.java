@@ -156,7 +156,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
 
             branchNumber= (TextView) item.findViewById(R.id.branchNumber);
-            branchNumber.setText(branchNumber.getText() + ": " + b.getBranchNumber()+"\n");
+            branchNumber.setText(branchNumber.getText() + ": " + b.getBranchNumber());
             Address = (TextView) item.findViewById(R.id.Address);
             Address.setText(Address.getText() + ": " + b.getAddress().toString());
             parkingSpaces = (TextView) item.findViewById(R.id.parkingSpaces);
