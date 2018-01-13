@@ -23,11 +23,17 @@
             android:id="@+id/nav_yourReservation"
             android:icon="@drawable/ic_current_car"
             android:title="Your Reservation" />
-        <item
-            android:id="@+id/nav_disconnect"
-            android:icon="@drawable/ic_exit"
-            android:title="Disconnect" />
     </group>
+
+        <item android:title="Exit">
+            <menu>
+                <item
+                    android:id="@+id/nav_disconnect"
+                    android:icon="@drawable/ic_exit"
+                    android:title="Disconnect" />
+            </menu>
+        </item>
+
 
 
 </menu>

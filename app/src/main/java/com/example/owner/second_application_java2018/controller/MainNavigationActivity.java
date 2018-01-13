@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
@@ -17,6 +18,7 @@ import android.view.View;
 
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.fragment.ContactFragment;
+import com.example.owner.second_application_java2018.fragment.ExitDialogFragment;
 import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 
 
@@ -76,8 +78,11 @@ public class MainNavigationActivity extends AppCompatActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.action_current_reservation) {
+
             return true;
+        }else if (id==R.id.action_exit){
+            showDialog();
         }
 
         return super.onOptionsItemSelected(item);
@@ -109,12 +114,32 @@ public class MainNavigationActivity extends AppCompatActivity
         } else if (id == R.id.nav_yourReservation) {
 
         } else if (id == R.id.nav_disconnect) {
-
+            showDialog();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
 
         return true;
+    }
+
+    void showDialog()// for exit from the application
+    {
+        //mStackLevel++;
+
+        // DialogFragment.show() will take care of adding the fragment
+        // in a transaction.  We also want to remove any currently showing
+        // dialog, so make our own transaction and take care of that here.
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        Fragment prev = getSupportFragmentManager().findFragmentByTag("dialog");
+        if (prev != null)
+        {
+            ft.remove(prev);
+        }
+        ft.addToBackStack(null);
+
+        // Create and show the dialog.
+        DialogFragment newFragment = ExitDialogFragment.newInstance(/*mStackLevel*/0,this);
+        newFragment.show(ft, "dialog");
     }
 }

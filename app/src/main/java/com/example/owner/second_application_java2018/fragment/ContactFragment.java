@@ -85,19 +85,9 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
         } else if ( v == phoneImageButton ) {
             phoneCall();
         } else if ( v == emailButton ) {
-            // Handle clicks for emailButton
+            sendingMail();
         } else if ( v == emailImageButton ) {
-            // Handle clicks for emailImageButton
-            String to="sarush1111@gmail.com";
-
-            Intent email = new Intent(Intent.ACTION_SEND);
-            email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
-
-            //need this to prompts email client only
-            email.setType("message/rfc822");
-
-            startActivity(Intent.createChooser(email, "Choose an Email client :"));
-
+            sendingMail();
         }
           else if ( v == websiteButton ) {
             websiteView();
@@ -113,6 +103,20 @@ public void phoneCall()
     startActivity(callIntent);
     return;
 }
+
+public void sendingMail()
+{
+    String to="sarush1111@gmail.com";
+
+    Intent email = new Intent(Intent.ACTION_SEND);
+    email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+
+    //need this to prompts email client only
+    email.setType("message/rfc822");
+
+    startActivity(Intent.createChooser(email, "Choose an Email client :"));
+}
+
 public void websiteView()
 {
     Intent intent=new Intent(getActivity(),WebViewActivity.class);
