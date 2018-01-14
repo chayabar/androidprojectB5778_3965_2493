@@ -74,7 +74,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } else if ( v == forgotPasswordButton ) {
             // Handle clicks for forgotPasswordButton
         } else if ( v == registBeutton ) {
-            // Handle clicks for registBeutton
+            Intent intent = new Intent(LoginActivity.this,addCustomerActivity.class);
+            startActivity(intent);
         } else if ( v == guestButton ) {
             Intent intent = new Intent(LoginActivity.this,MainNavigationActivity.class);
             startActivity(intent);
