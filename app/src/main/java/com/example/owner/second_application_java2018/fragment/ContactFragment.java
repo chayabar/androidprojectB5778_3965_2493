@@ -98,7 +98,7 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
 
 public void phoneCall()
 {
-    Uri number=Uri.parse("tel:0585840067");
+    Uri number=Uri.parse("tel:0525857646");
     Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
     startActivity(callIntent);
     return;
