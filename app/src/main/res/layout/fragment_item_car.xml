@@ -16,59 +16,39 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/branchNumber"
+                android:id="@+id/branchAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="branch number"
+                android:text="branch address"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/Address"
+                android:id="@+id/companyName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="company name"
                 android:textSize="24sp" />
 
             <TextView
-                android:id="@+id/parkingSpaces"
+                android:id="@+id/mileAge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Parking spaces"
+                android:text="mile age"
                 android:textSize="24sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
             <TextView
-                android:id="@+id/titleCars"
+                android:id="@+id/carNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="exist cars"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textDirection="ltr"
-                android:textSize="24sp"
-                android:textStyle="bold" />
+                android:text="car number"
+                android:textSize="24sp" />
 
-            <LinearLayout
+            <Button
+                android:id="@+id/buttonRent"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:text="rent this car" />
 
-                <ListView
-                    android:id="@+id/listCars"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/holo_orange_light"
-                    android:headerDividersEnabled="false"
-                    android:scrollbars="none" />
-
-
-            </LinearLayout>
         </LinearLayout>
 
 

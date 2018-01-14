@@ -37,7 +37,8 @@ public interface DB_manager {
     boolean existbranch(ContentValues branch);
     boolean existorder(ContentValues order);*/
 
-
+    Branch getBranchByBranchNumber(int BranchNumber);
+    CarModel getCarModelByID(int ID);
 
     ArrayList<Customer> getCustomers();
     ArrayList<Car> getCars();

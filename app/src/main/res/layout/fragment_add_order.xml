@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:context="com.example.owner.second_application_java2018.controller."
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="81dp">
+
+        <EditText
+            android:id="@+id/OrderIdEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Order id"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/CustomerIdEditText"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <EditText
+            android:id="@+id/CustomerIdEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="customer ID"
+            android:inputType="number"
+            app:layout_constraintBottom_toTopOf="@+id/OrderStatusSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/OrderIdEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Spinner
+            android:id="@+id/OrderStatusSpinner"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/CarNumberSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/CustomerIdEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/OrderStatustextView" />
+
+        <TextView
+            android:id="@+id/OrderStatustextView"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text=" Order Status "
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/CarNumberSpinner"
+            app:layout_constraintTop_toBottomOf="@+id/CustomerIdEditText"
+            app:layout_constraintRight_toLeftOf="@+id/OrderStatusSpinner"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Spinner
+            android:id="@+id/CarNumberSpinner"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/startRentTextView"
+            app:layout_constraintTop_toBottomOf="@+id/OrderStatusSpinner"
+            app:layout_constraintLeft_toRightOf="@+id/CarNumbertextView"
+            app:layout_constraintRight_toRightOf="parent" />
+
+        <TextView
+            android:id="@+id/CarNumbertextView"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text=" Car Number "
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/startRentTextView"
+            app:layout_constraintTop_toBottomOf="@+id/OrderStatusSpinner"
+            app:layout_constraintRight_toLeftOf="@id/CarNumberSpinner"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <TextView
+            android:id="@+id/startRentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text=" Start rent: "
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/endRentTextView"
+            app:layout_constraintTop_toBottomOf="@+id/CarNumberSpinner"
+            app:layout_constraintRight_toLeftOf="@+id/CustomDatePiker"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <view
+            android:id="@+id/CustomDatePiker"
+            class="com.example.owner.android5778_3965_2493_00.controller.CustomDatePicker"
+            id="@+id/view"
+            layout_width="match_parent"
+            android:gravity="left|center"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/CustomDatePiker2"
+            app:layout_constraintTop_toBottomOf="@+id/CarNumberSpinner"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/startRentTextView" />
+
+        <TextView
+            android:id="@+id/endRentTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text=" End rent: "
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            app:layout_constraintBottom_toTopOf="@+id/StartMileAgeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/CustomDatePiker"
+            app:layout_constraintRight_toLeftOf="@+id/CustomDatePiker2"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <view
+            android:id="@+id/CustomDatePiker2"
+            class="com.example.owner.android5778_3965_2493_00.controller.CustomDatePicker"
+            id="@+id/view4"
+            layout_width="match_parent"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:gravity="left|center"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            app:layout_constraintBottom_toTopOf="@+id/StartMileAgeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/CustomDatePiker"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/endRentTextView" />
+
+        <EditText
+            android:id="@+id/StartMileAgeEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Start Mile Age"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/EndMileAgeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/CustomDatePiker2"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <EditText
+            android:id="@+id/EndMileAgeEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="End Mile Age"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/FuelFillingCheckBox"
+            app:layout_constraintTop_toBottomOf="@+id/StartMileAgeEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <CheckBox
+            android:id="@+id/FuelFillingCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:textAppearance="@android:style/TextAppearance.Material.Medium"
+            android:text="Fuel Filling "
+            app:layout_constraintBottom_toTopOf="@+id/ChargeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/EndMileAgeEditText"
+            app:layout_constraintRight_toLeftOf="@+id/FuelLitterEditText"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <EditText
+            android:id="@+id/FuelLitterEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Number of litters filled"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/ChargeEditText"
+            app:layout_constraintTop_toBottomOf="@+id/EndMileAgeEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/FuelFillingCheckBox" />
+
+        <EditText
+            android:id="@+id/ChargeEditText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Total payment"
+            android:inputType="numberDecimal"
+            app:layout_constraintBottom_toTopOf="@+id/addButton"
+            app:layout_constraintTop_toBottomOf="@+id/FuelLitterEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+
+        <Button
+            android:id="@+id/addButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="ADD"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ChargeEditText"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>

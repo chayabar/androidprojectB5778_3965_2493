@@ -1,3 +1,4 @@
+/*
 package com.example.owner.second_application_java2018.model.datasource;
 
 
@@ -22,9 +23,11 @@ import static com.example.owner.second_application_java2018.model.backend.RentCo
 import static com.example.owner.second_application_java2018.model.backend.RentConst.OrderToContentValues;
 
 
+*/
 /**
  * Created by שרה  on 30/12/2017.
- */
+ *//*
+
 
 public class List_DBManager implements DB_manager {
     public static ArrayList<Customer> customers;
@@ -51,7 +54,8 @@ public class List_DBManager implements DB_manager {
             }
         return false;    }
 
-   /* @Override
+   */
+/* @Override
     public boolean existcar(ContentValues newCar) {
         Car car = ContentValuesToCar(newCar);
         for (Car item : cars)
@@ -79,7 +83,8 @@ public class List_DBManager implements DB_manager {
                 return true;
             }
         return false;
-    }*/
+    }*//*
+
 
     @Override
     public boolean addCustomer(ContentValues newCustomer) {
@@ -124,7 +129,8 @@ public class List_DBManager implements DB_manager {
         return true;
     }
 
-    /*@Override
+    */
+/*@Override
     public boolean removeCustomer(long id) {
         Customer customerToRemove = null;
         for (Customer item : customers)
@@ -182,7 +188,8 @@ public class List_DBManager implements DB_manager {
             }
         return false;
     }
-*/
+*//*
+
 
     @Override
     public boolean updateCar(int id,ContentValues values) {
@@ -196,7 +203,8 @@ public class List_DBManager implements DB_manager {
         return false;
     }
 
-    /* @Override
+    */
+/* @Override
     public boolean updateBranch(int id,ContentValues values) {
         Branch branch = ContentValuesToBranch(values);
         branch.setBranchNumber(id);
@@ -206,7 +214,8 @@ public class List_DBManager implements DB_manager {
                 return true;
             }
         return false;
-    }*/
+    }*//*
+
 
     //@Override
     public boolean updateOrder(int id, ContentValues values) {
@@ -247,9 +256,11 @@ public class List_DBManager implements DB_manager {
 
     @Override
     public ArrayList<Car> getAvailableCars() {
-        /** This method is used to check which cars are available for rent.
+        */
+/** This method is used to check which cars are available for rent.
          * @return list of cars.
-         */
+         *//*
+
         ArrayList<Car> AvailableCars= getCars();
         for (final Order item : getOrders())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
@@ -262,9 +273,11 @@ public class List_DBManager implements DB_manager {
 
     @Override
     public ArrayList<Car> getAvailableCarsByBranch(int branchNumber) {
-        /**This method is used to check which cars are available for rent at a particular branch.
+        */
+/**This method is used to check which cars are available for rent at a particular branch.
          * @return list of cars.
-         */
+         *//*
+
         ArrayList<Car> AvailableCars=null;
         for (Car item : cars)
             if (item.getHouseBranch()==branchNumber) {
@@ -275,10 +288,12 @@ public class List_DBManager implements DB_manager {
 
     @Override
     public ArrayList<Order> getOpenOrders() {
-        /**This method is used to check which order is open,
+        */
+/**This method is used to check which order is open,
          * ie the vehicle is still leased.
          * @return list of orders
-         */
+         *//*
+
         ArrayList<Order> OpenOrders= null;
         for (Order item : orders)
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
@@ -326,3 +341,4 @@ public class List_DBManager implements DB_manager {
     }
 
 }
+*/

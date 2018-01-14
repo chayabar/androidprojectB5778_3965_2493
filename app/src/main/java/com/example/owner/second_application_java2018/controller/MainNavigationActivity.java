@@ -20,6 +20,7 @@ import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.fragment.ContactFragment;
 import com.example.owner.second_application_java2018.fragment.ExitDialogFragment;
 import com.example.owner.second_application_java2018.fragment.FragmentBranches;
+import com.example.owner.second_application_java2018.fragment.FragmentReserveACar;
 
 
 public class MainNavigationActivity extends AppCompatActivity
@@ -110,6 +111,10 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_reserveAcar) {
+            fragment = new FragmentReserveACar();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_yourReservation) {
 

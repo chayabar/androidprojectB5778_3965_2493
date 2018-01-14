@@ -4,6 +4,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.Filter;
 import android.widget.Filterable;
@@ -35,13 +36,14 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     private ArrayList<Branch> tempBranch;
     private ArrayList<Car> tempCar;
     android.app.Activity activity;
-    ArrayAdapter<String> adapterActivities;
+    ArrayAdapter<Integer> adapterCars;
     private String mType;
 
-    TextView branchNumber;
-    TextView Address;
-    TextView parkingSpaces;
+    private String carTag="Cars";
+    private String branchTag="Branches";
 
+
+    private Button b_rentCar;
 
 
     public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, android.app.Activity mactivity)
@@ -49,14 +51,14 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         mType=type;
         expandableListView = myExpandableListView;
         activity = mactivity;
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo(branchTag)==0)
         {
             tempBranch = manager.getBranchs();
         }
-        /*if(mType.compareTo("travels")==0)
+        if(mType.compareTo(carTag)==0)
         {
-            tempActi = manager.getListOfActivities();
-        }*/
+            tempCar= manager.getCars();
+        }
 
     }
 
@@ -64,20 +66,18 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     @Override
     public int getGroupCount()
     {
-        int returndItem;///delete =0
-        if(mType.compareTo("Branches")==0)
+        int returndItem;
+        if(mType.compareTo(branchTag)==0)
         {
             returndItem= tempBranch.size();
         }
-        /*else//if(mType.compareTo("travels")==0)
+        else if(mType.compareTo(carTag)==0)
         {
-            returndItem= tempActi.size();
-        }*/
+            returndItem= tempCar.size();
+        }
         else
-            returndItem=1;
+            returndItem=0;
         return returndItem;
-
-
     }
 
     @Override
@@ -115,7 +115,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
         View header;
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo(branchTag)==0)
         {
 
             header = activity.getLayoutInflater().inflate(R.layout.header_branch, parent, false);
@@ -126,18 +126,17 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             TextView parking = (TextView) header.findViewById(R.id.parkingNumTextView);
             parking.setText(String.valueOf(b.getParkingSpaces()));
         }
-        else {
-            /*if (mType.compareTo("travels") == 0) {
-                header = activity.getLayoutInflater().inflate(R.layout.header_travel, parent, false);
-                Activity a = tempActi.get(groupPosition);
-                TextView desc = (TextView) header.findViewById(R.id.desc_travel);
-                desc.setText(a.getActivityDescription());
-                TextView startDate = (TextView) header.findViewById(R.id.start_date_travel);
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-                startDate.setText(sdf.format(a.getActivityStartDate()));
-            } else*/ {
-                header = null;
-            }
+        else if (mType.compareTo(carTag) == 0) {
+            header = activity.getLayoutInflater().inflate(R.layout.header_car, parent, false);
+            Car c = tempCar.get(groupPosition);
+            TextView branchAddress = (TextView) header.findViewById(R.id.branchAddressTextView);
+            String bAddress=manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
+            branchAddress.setText(bAddress);
+            TextView companyName = (TextView) header.findViewById(R.id.companyNameTextView);
+            String cName=manager.getCarModelByID(c.getModelCode()).getCompanyName();
+            companyName.setText(cName);
+        }else {
+            header = null;
         }
         return header;
     }
@@ -148,12 +147,16 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
         View item=null;
 
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo(branchTag)==0)
         {
 
             item= activity.getLayoutInflater().inflate(R.layout.fragment_item_branch, parent, false);
             final Branch b = tempBranch.get(groupPosition);
 
+
+            TextView branchNumber;
+            TextView Address;
+            TextView parkingSpaces;
 
             branchNumber= (TextView) item.findViewById(R.id.branchNumber);
             branchNumber.setText(branchNumber.getText() + ": " + b.getBranchNumber());
@@ -162,69 +165,42 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             parkingSpaces = (TextView) item.findViewById(R.id.parkingSpaces);
             parkingSpaces.setText(parkingSpaces.getText() + ": " + b.getParkingSpaces());
 
+            /*ListView listCars = (ListView) item.findViewById(R.id.listCars);
+            final ArrayList<Car> CarsInBranch = manager.getAvailableCarsByBranch(b.getBranchNumber());
+            final ArrayList<Integer> namesA = new ArrayList<Integer>();
 
-
-           /* b_adress = (Button) item.findViewById(R.id.btn_adress);
-            b_phone = (Button) item.findViewById(R.id.btn_phone);
-            b_email = (Button) item.findViewById(R.id.btn_email);
-            b_website = (Button) item.findViewById(R.id.btn_website);
-
-            b_adress.setOnClickListener(this);
-            b_phone.setOnClickListener(this);
-            b_email.setOnClickListener(this);
-            b_website.setOnClickListener(this);*/
-
-
-
-            /*ListView listCars = (ListView) item.findViewById(R.id.listTravels);
-            final ArrayList<com.example.user.userapp.model.entities.Activity> activitiesForBusiness = manager.getActivitiesByBusiness(String.valueOf(b.getBusinessID()));
-            final ArrayList<String> namesA = new ArrayList<String>();
-
-            for (com.example.user.userapp.model.entities.Activity a : activitiesForBusiness)
-                 namesA.add(a.getActivityDescription());
+            for (Car a : CarsInBranch)
+                namesA.add(a.getModelCode());
 
             final Context context = activity.getApplicationContext();
-            adapterActivities = new ArrayAdapter<String>(context,android.R.layout.simple_list_item_1, namesA);
+            adapterCars = new ArrayAdapter<Integer>(context,android.R.layout.simple_list_item_1, namesA);
 
 
-            listTravel.setAdapter(adapterActivities);
-            setListViewHeightBasedOnChildren(listTravel);*/
+            listCars.setAdapter(adapterCars);
+            setListViewHeightBasedOnChildren(listCars);*/
 
         }
         else {
-            if (mType.compareTo("travels") == 0) {
-               /* item = activity.getLayoutInflater().inflate(R.layout.fragment_item_travel, parent, false);
-                final Activity a = tempActi.get(groupPosition);
+            if (mType.compareTo(carTag) == 0) {
+                item = activity.getLayoutInflater().inflate(R.layout.fragment_item_car, parent, false);
+                final Car c = tempCar.get(groupPosition);
 
-                TextView type = (TextView) item.findViewById(R.id.type);
-                type.setText(type.getText() + ": " + a.getActivityType().toString());
+                TextView branchAddress = (TextView) item.findViewById(R.id.branchAddress);
+                String bAddress=manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
+                branchAddress.setText(bAddress);
 
-                TextView country = (TextView) item.findViewById(R.id.country);
-                country.setText(country.getText() + ": " + a.getActivityCountry());
+                TextView companyName = (TextView) item.findViewById(R.id.companyName);
+                String cName=manager.getCarModelByID(c.getModelCode()).getCompanyName();
+                companyName.setText(cName);
 
+                TextView mileAge =(TextView) item.findViewById(R.id.mileAge);
+                mileAge.setText(String.valueOf(c.getMileAge()));
 
-                java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("dd-MM-yyyy");
-                TextView startdate = (TextView) item.findViewById(R.id.startDate);
-                startdate.setText(startdate.getText() + ": " + sdf.format(a.getActivityStartDate()));
-                TextView stopdate = (TextView) item.findViewById(R.id.stopDate);
-                stopdate.setText(stopdate.getText() + ": " + sdf.format(a.getActivityStopDate()));
-                TextView cost = (TextView) item.findViewById(R.id.cost);
-                cost.setText(cost.getText() + ": " + String.valueOf(a.getActivityCost()));
-                TextView desc = (TextView) item.findViewById(R.id.description);
-                desc.setText(desc.getText() + ": " + a.getActivityDescription());
+                TextView carNumber =(TextView) item.findViewById(R.id.carNumber);
+                carNumber.setText(String.valueOf(c.getCarNumber()));
 
-                Business business=manager.getBusinessById(a.getActivityBuisnessID());
-                
-                TextView busiName = (TextView) item.findViewById(R.id.businessName);
-                busiName.setText(busiName.getText() + ": " + business.getBusinessName());
-                TextView busi_adress = (TextView) item.findViewById(R.id.busi_adress);
-                busi_adress.setText(busi_adress.getText() + ": " + business.getBusinessAdress());
-                TextView busi_phone = (TextView) item.findViewById(R.id.busi_phone);
-                busi_phone.setText(busi_phone.getText() + ": " + business.getBusinessPhone());
-                TextView busi_email = (TextView) item.findViewById(R.id.busi_email);
-                busi_email.setText(busi_email.getText() + ": " + business.getBusinessEmail());
-                TextView busi_website = (TextView) item.findViewById(R.id.busi_website);
-                busi_website.setText(busi_website.getText() + ": " + business.getBusinessWebSite());*/
+                b_rentCar = (Button) item.findViewById(R.id.buttonRent);
+                b_rentCar.setOnClickListener(this);
 
             } else {
                 item = null;
@@ -244,30 +220,30 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     {
         if (edf == null)
         {
-            if(mType.compareTo("Branches")==0)
+            if(mType.compareTo(branchTag)==0)
             {
-                edf = new ExpandableDataFilter("Branches", this);
+                edf = new ExpandableDataFilter(branchTag, this);
             }
-            if(mType.compareTo("travels")==0)
+            if(mType.compareTo(carTag)==0)
             {
-                edf = new ExpandableDataFilter("travels", this);
+                edf = new ExpandableDataFilter(carTag, this);
             }
         }
-            return edf;
+        return edf;
     }
 
     @Override
     public void notifyDataSetChanged()
     {
         super.notifyDataSetChanged();
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo(branchTag)==0)
         {
             tempBranch = edf.branches;
         }
-        /*if(mType.compareTo("travels")==0)
+        if(mType.compareTo(carTag)==0)
         {
-            tempActi=edf.activities;
-        }*/
+            tempCar=edf.cars;
+        }
 
     }
 
@@ -276,31 +252,30 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     {
         //no agency founs as matching the query
         super.notifyDataSetInvalidated();
-        if(mType.compareTo("Branches")==0)
+        if(mType.compareTo(branchTag)==0)
         {
             tempBranch = edf.branches;
         }
-        /*if(mType.compareTo("travels")==0)
+        if(mType.compareTo(carTag)==0)
         {
-            tempActi=edf.activities;
-        }*/
+            tempCar=edf.cars;
+        }
         Toast.makeText(this.activity,"no results", Toast.LENGTH_LONG).show();
     }
 
 
     @Override
     public void onClick(View v) {
-//
-//        if (v == b_adress) {
-//            // intent action maps
-//            String s1=adress.getText().toString().replace("adress: ","");
-//
-//            Intent implicitIntent = new Intent(Intent.ACTION_VIEW);
-//            implicitIntent.setData(Uri.parse("geo:0,0?q=" + s1.replace(" ","+").replace("\n","+")));
-//            if (implicitIntent.resolveActivity(this.activity.getPackageManager()) != null) {
-//                this.activity.startActivity(implicitIntent);
-//            }
-//        }
+
+        if (v == b_rentCar) {
+            // intent action for rent car, start reservation
+            /*FragmentTransaction ft;
+            Fragment fragment;
+            fragment = new addOrderFragment();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();*/
+        }
 //        if (v == b_phone) {
 //            // intent action phone
 //            String s2=phone.getText().toString().replace("phone: ","");
@@ -311,35 +286,8 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 //                this.activity.startActivity(intent);
 //            }
 //        }
-//        if (v == b_email)
-//        {
-//            // intent action email
-//            String to = email.getText().toString().replace("email: ", "");
-//            //???d
-//            Log.i("Send email", "");
-//            Intent emailIntent = new Intent(Intent.ACTION_SEND);
-//
-//            emailIntent.setData(Uri.parse("mailto:"));
-//            emailIntent.setType("*/*");
-//            emailIntent.putExtra(Intent.EXTRA_EMAIL, new String[]{to});
-//
-//            try {
-//                this.activity.startActivity(Intent.createChooser(emailIntent, "Send message..."));
-//                Log.i("Finished sending email", "");
-//            } catch (android.content.ActivityNotFoundException ex) {
-//                Toast.makeText(this.activity, "There is no email client installed.", Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        if (v == b_website)
-//        {
-//                // intent action website
-//                String s4=website.getText().toString().replace("website: ","");
-//
-//                Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://"+s4));
-//                this.activity.startActivity(browserIntent);
-//        }
-
     }
+
 
     public static void setListViewHeightBasedOnChildren(ListView listView) {
         ListAdapter listAdapter = listView.getAdapter();

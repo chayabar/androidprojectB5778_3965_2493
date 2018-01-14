@@ -28,9 +28,13 @@ import static com.example.owner.second_application_java2018.model.backend.RentCo
 
 
 public class MySQL_DBManager implements DB_manager {
-    final ArrayList<Branch> result = new ArrayList<Branch>();
 
     private String WEB_URL = "http://avichzer.vlab.jct.ac.il/rentPHP";
+    final ArrayList<CarModel> CarModelList = new ArrayList<CarModel>();
+    final ArrayList<Customer> CustomerList = new ArrayList<Customer>();
+    final ArrayList<Car> CarList = new ArrayList<Car>();
+    final ArrayList<Branch> BranchList = new ArrayList<Branch>();
+    final ArrayList<Order> OrderList = new ArrayList<Order>();
 
     @Override
     public boolean existCustomer(ContentValues newcustomer) {
@@ -139,147 +143,158 @@ public class MySQL_DBManager implements DB_manager {
 
     @Override
     public ArrayList<Customer> getCustomers()
-    {    
-        ArrayList<Customer> result = new ArrayList<Customer>();
-        try {
-            String str = PHPtools.GET(WEB_URL + "/customers.php");
-            JSONArray array = new JSONObject(str).getJSONArray("customers");
-            for (int i = 0; i < array.length(); i++)
-            {            
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                Customer customer = RentConst.ContentValuesToCustomer(contentValues);
-                result.add(customer );
-            }        
-            return result;  
-        } 
-        catch (Exception e) {         
-            e.printStackTrace(); 
-        }  
-        return null;
-    }
-
-    @Override
-    public ArrayList<CarModel> getCarModels()
     {
-        ArrayList<CarModel> result = new ArrayList<CarModel>();
-        try {
-            String str = PHPtools.GET(WEB_URL + "/carModels.php");
-            JSONArray array = new JSONObject(str).getJSONArray("carModels");
-            for (int i = 0; i < array.length(); i++)
-            {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                CarModel carModel = RentConst.ContentValuesToCarModel(contentValues);
-                result.add(carModel);
-            }
-            return result;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    
-    @Override
-    public ArrayList<Car> getCars()
-    {
-        ArrayList<Car> result = new ArrayList<Car>();
-        try {
-            String str = PHPtools.GET(WEB_URL + "/cars.php");
-            JSONArray array = new JSONObject(str).getJSONArray("cars");
-            for (int i = 0; i < array.length(); i++)
-            {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                Car car = RentConst.ContentValuesToCar(contentValues);
-                result.add(car);
-            }
-            return result;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-    @Override
-    public ArrayList<Branch> getBranchs()
-    {
-        if(!result.isEmpty())
+        if(!CustomerList.isEmpty())
         {
-            return result;
+            return CustomerList;
         }
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
             {
                 try {
-                    try {
-                        String str = PHPtools.GET(WEB_URL + "/branchs.php");
-                        JSONArray array = new JSONObject(str).getJSONArray("branchs");
-                        for (int i = 0; i < array.length(); i++)
-                        {
-                            JSONObject jsonObject = array.getJSONObject(i);
-                            ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                            Branch branch = RentConst.ContentValuesToBranch(contentValues);
-                            result.add(branch);
-                        }
-                    }
-                    catch (Exception e) {
-                        e.printStackTrace();
+                    String str = PHPtools.GET(WEB_URL + "/customers.php");
+                    JSONArray array = new JSONObject(str).getJSONArray("customers");
+                    for (int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject jsonObject = array.getJSONObject(i);
+                        ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                        Customer customer = RentConst.ContentValuesToCustomer(contentValues);
+                        CustomerList.add(customer );
                     }
                 }
-                catch (Exception ex)
-                {
-                    //Toast.makeText(this, "failed ",Toast.LENGTH_LONG).show();
-
+                catch (Exception e) {
+                    e.printStackTrace();
                 }
-
                 return null;
             }
-
         }.execute();
-        return result;
+        return CustomerList;
+    }
 
-        /*ArrayList<Branch> result = new ArrayList<Branch>();
-        try {
-            String str = PHPtools.GET(WEB_URL + "/branchs.php");
-            JSONArray array = new JSONObject(str).getJSONArray("branchs");
-            for (int i = 0; i < array.length(); i++)
+    @Override
+    public ArrayList<CarModel> getCarModels()
+    {
+        if(!CarModelList.isEmpty())
+        {
+            return CarModelList;
+        }
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void  doInBackground(Void... params)
             {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                Branch branch = RentConst.ContentValuesToBranch(contentValues);
-                result.add(branch);
+                try {
+                    String str = PHPtools.GET(WEB_URL + "/carModels.php");
+                    JSONArray array = new JSONObject(str).getJSONArray("carModels");
+                    for (int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject jsonObject = array.getJSONObject(i);
+                        ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                        CarModel carModel = RentConst.ContentValuesToCarModel(contentValues);
+                        CarModelList.add(carModel);
+                    }
+
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-            return result;
+        }.execute();
+        return CarModelList;
+    }
+
+    @Override
+    public ArrayList<Car> getCars()
+    {
+        if(!CarList.isEmpty())
+        {
+            return CarList;
         }
-        catch (Exception e) {
-            e.printStackTrace();
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void  doInBackground(Void... params)
+            {
+                try {
+                    String str = PHPtools.GET(WEB_URL + "/cars.php");
+                    JSONArray array = new JSONObject(str).getJSONArray("cars");
+                    for (int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject jsonObject = array.getJSONObject(i);
+                        ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                        Car car = RentConst.ContentValuesToCar(contentValues);
+                        CarList.add(car);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
+        return CarList;
+    }
+
+    @Override
+    public ArrayList<Branch> getBranchs()
+    {
+        if(!BranchList.isEmpty())
+        {
+            return BranchList;
         }
-        return null;*/
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void  doInBackground(Void... params)
+            {
+                try {
+                    String str = PHPtools.GET(WEB_URL + "/branchs.php");
+                    JSONArray array = new JSONObject(str).getJSONArray("branchs");
+                    for (int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject jsonObject = array.getJSONObject(i);
+                        ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                        Branch branch = RentConst.ContentValuesToBranch(contentValues);
+                        BranchList.add(branch);
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+        }.execute();
+        return BranchList;
     }
 
     @Override
     public ArrayList<Order> getOrders()
     {
-        ArrayList<Order> result = new ArrayList<Order>();
-        try {
-            String str = PHPtools.GET(WEB_URL + "/orders.php");
-            JSONArray array = new JSONObject(str).getJSONArray("orders");
-            for (int i = 0; i < array.length(); i++)
+        if(!OrderList.isEmpty())
+        {
+            return OrderList;
+        }
+        new AsyncTask<Void,Void,Void>(){
+            @Override
+            protected Void  doInBackground(Void... params)
             {
-                JSONObject jsonObject = array.getJSONObject(i);
-                ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
-                Order order = RentConst.ContentValuesToOrder(contentValues);
-                result.add(order );
+                try {
+                    String str = PHPtools.GET(WEB_URL + "/orders.php");
+                    JSONArray array = new JSONObject(str).getJSONArray("orders");
+                    for (int i = 0; i < array.length(); i++)
+                    {
+                        JSONObject jsonObject = array.getJSONObject(i);
+                        ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
+                        Order order = RentConst.ContentValuesToOrder(contentValues);
+                        OrderList.add(order );
+                    }
+                }
+                catch (Exception e) {
+                    e.printStackTrace();
+                }
+                return null;
             }
-            return result;
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
+        }.execute();
+        return OrderList;
     }
 
     @Override
@@ -373,5 +388,25 @@ public class MySQL_DBManager implements DB_manager {
             //updateOrder(order.getOrderID(), OrderToContentValues(order));
         }
     }
+
+    public Branch getBranchByBranchNumber(int BranchNumber){
+        Branch b=null;
+        for (Branch br: getBranchs())
+        {
+            if (br.getBranchNumber()==BranchNumber)
+                b=br;
+        }
+        return b;
+    }
+
+    public CarModel getCarModelByID(int ID){
+        for(CarModel cm : getCarModels())
+        {
+            if(cm.getModelCode()==ID)
+                return cm;
+        }
+        return null;
+    }
+
 }
 
