@@ -67,7 +67,9 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
 
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-
+        DBManagerFactory.getManager().getCarModels();
+        DBManagerFactory.getManager().getBranchs();
+        DBManagerFactory.getManager().getCars();
 
 
         return rootView;
