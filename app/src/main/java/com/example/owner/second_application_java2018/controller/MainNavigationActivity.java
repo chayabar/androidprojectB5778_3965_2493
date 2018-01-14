@@ -1,5 +1,6 @@
 package com.example.owner.second_application_java2018.controller;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -38,8 +39,15 @@ public class MainNavigationActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+               /* Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();*/
+                String to="sarush1111@gmail.com";
+                Intent email = new Intent(Intent.ACTION_SEND);
+                email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
+                //need this to prompts email client only
+                email.setType("message/rfc822");
+                startActivity(Intent.createChooser(email, "Choose an Email client :"));
+
             }
         });
 
