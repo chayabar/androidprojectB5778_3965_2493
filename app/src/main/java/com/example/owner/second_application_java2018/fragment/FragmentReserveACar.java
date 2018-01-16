@@ -27,6 +27,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     private ExpandableListView expandableListView;
     DB_manager manager= DBManagerFactory.getManager();
 
+
     public FragmentReserveACar() {
         // Required empty public constructor
     }
@@ -67,10 +68,6 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
 
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
-        DBManagerFactory.getManager().getCarModels();
-        DBManagerFactory.getManager().getBranchs();
-        DBManagerFactory.getManager().getCars();
-
 
         return rootView;
     }

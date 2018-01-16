@@ -10,6 +10,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.owner.second_application_java2018.R;
+import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
+import com.example.owner.second_application_java2018.model.backend.DB_manager;
 
 //  yishar koach!
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -19,6 +21,14 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViews();
+
+        DB_manager manager=DBManagerFactory.getManager();
+        manager.getCarModels();
+        manager.getBranchs();
+        manager.getCars();
+        manager.getOrders();
+        manager.getCustomers();
+
 
         /*final ContentValues contentValues = new ContentValues();
         contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
@@ -49,7 +59,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         userNameEditText = (EditText)findViewById( R.id.userNameEditText );
         loginButton = (Button)findViewById( R.id.loginButton );
         memberLoginTextView = (TextView)findViewById( R.id.memberLoginTextView );
-         userImageView = (ImageView)findViewById( R.id.userImageView );
+        userImageView = (ImageView)findViewById( R.id.userImageView );
         passwordImageView = (ImageView)findViewById( R.id.passwordImageView );
         forgotPasswordButton = (Button)findViewById( R.id.forgotPasswordButton );
         registBeutton = (Button)findViewById( R.id.registBeutton );

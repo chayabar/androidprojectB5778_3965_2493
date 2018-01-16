@@ -171,9 +171,16 @@ public class RentConst {
         String dateStringStart = dateFormatStart.format(order.getStartRent());
         contentValues.put(OrderConst.STARTRENT, dateStringStart);
 
+        if (order.getEndRent()!=null)
+        {
         DateFormat dateFormatEnd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); // like MySQL Format
         String dateStringEnd = dateFormatEnd.format(order.getEndRent());
         contentValues.put(OrderConst.ENDRENT, dateStringEnd);
+        }
+        else
+            contentValues.put(OrderConst.ENDRENT, "");
+
+
 
         contentValues.put(OrderConst.STARTMILEAGE, order.getStartMileAge());
         contentValues.put(OrderConst.ENDMILEAGE, order.getEndMileAge());

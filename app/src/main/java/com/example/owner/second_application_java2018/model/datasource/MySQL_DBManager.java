@@ -35,6 +35,7 @@ public class MySQL_DBManager implements DB_manager {
     final ArrayList<Car> CarList = new ArrayList<Car>();
     final ArrayList<Branch> BranchList = new ArrayList<Branch>();
     final ArrayList<Order> OrderList = new ArrayList<Order>();
+    private boolean isDone;
 
     @Override
     public boolean existCustomer(ContentValues newcustomer) {
@@ -122,23 +123,33 @@ public class MySQL_DBManager implements DB_manager {
         }
     }
 
+
     @Override
-    public boolean addOrder(ContentValues values)
+    public boolean addOrder(final ContentValues values)
     {
-        try
-        {
-            String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
-            boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
-            return isDone;
-        }
-        catch (IOException e)
-        {
-            //printLog("addStudent Exception:\n" + e);
-            return false;
-        }
+        final Boolean[] isDone = new Boolean[1];
+        new AsyncTask<Void,Void,Boolean>(){
+            @Override
+            protected void onPostExecute(Boolean aBoolean) {
+                super.onPostExecute(aBoolean);
+                isDone[0] = aBoolean;
+            }
+
+            @Override
+            protected Boolean  doInBackground(Void... params)
+            {
+                try
+                {
+                    String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
+                    return Boolean.parseBoolean(result);
+                }
+                catch (IOException e)
+                {
+                    return false;
+                }
+            }
+        }.execute();
+        return isDone[0];
     }
 
     @Override
