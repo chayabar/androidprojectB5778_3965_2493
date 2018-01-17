@@ -351,6 +351,14 @@ public class MySQL_DBManager implements DB_manager {
         return OpenOrders;
     }
 
+    public boolean checkUsernameAndPassword(String lastName, int ID)
+    {
+        for(Customer item : getCustomers())
+            if(item.getLastName()==lastName&&item.getID()==ID)
+                return true;
+        return false;
+    }
+
     private Order getOrderByID( int orderID)
     {
         for(Order o : getOrders())

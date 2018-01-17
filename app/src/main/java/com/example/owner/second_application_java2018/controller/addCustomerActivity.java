@@ -2,8 +2,10 @@ package com.example.owner.second_application_java2018.controller;
 
 import android.app.Activity;
 import android.content.ContentValues;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -47,6 +49,7 @@ public class addCustomerActivity extends Activity implements View.OnClickListene
         if ( v == AddButton ) {
             // Handle clicks for AddButton
             addCustomer();
+            saveSharedPreferences();
             finish();
         }
     }
@@ -75,4 +78,20 @@ public class addCustomerActivity extends Activity implements View.OnClickListene
         }
         catch (Exception e) {}
     }
+
+    private void saveSharedPreferences() {
+        try {
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            String name = LastNameEditText.getText().toString();
+            int id = Integer.parseInt(IDEditText.getText().toString());
+            editor.putString("NAME", name);
+            editor.putInt("ID", id);
+            editor.commit();
+            Toast.makeText(this, "You are saved as a Member", Toast.LENGTH_SHORT).show();
+        } catch (Exception ex) {
+            Toast.makeText(this, "failed to save, Please try again", Toast.LENGTH_SHORT).show();
+        }
+    }
+
 }

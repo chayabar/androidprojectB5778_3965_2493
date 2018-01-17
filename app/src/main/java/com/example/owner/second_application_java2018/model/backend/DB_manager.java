@@ -48,5 +48,6 @@ public interface DB_manager {
     ArrayList<Car> getAvailableCars();
     ArrayList<Car> getAvailableCarsByBranch(int branchNumber);
     ArrayList<Order> getOpenOrders();
+    boolean checkUsernameAndPassword(String lastName, int ID);
 
 }
