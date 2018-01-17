@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,13 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViews();
+        DB_manager manager=DBManagerFactory.getManager();
+        manager.getCustomers();
+        manager.getBranchs();
+        manager.getCars();
+        manager.getCarModels();
+        manager.getOrders();
+        SystemClock.sleep(7000);
 
         /*final ContentValues contentValues = new ContentValues();
         contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
@@ -80,6 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     public void onClick(View v) {
         if ( v == loginButton ) {
             loadSharedPreferences();
+            checkSharedPreferences();
         } else if ( v == forgotPasswordButton ) {
             // Handle clicks for forgotPasswordButton
         } else if ( v == registButton ) {
@@ -97,15 +106,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
     private void checkSharedPreferences(){
        // Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         DB_manager manager = DBManagerFactory.getManager();
 
         if(manager.checkUsernameAndPassword(userNameEditText.toString(),Integer.valueOf(this.passwordEditText.getText().toString()))) {
-            enter();
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPreferences.edit();
             boolean savePass = savePasswordSwitch.getShowText();
             editor.putBoolean("savePass", savePass);
             editor.commit();
+            enter();
+            return;
         }
         else
             Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
