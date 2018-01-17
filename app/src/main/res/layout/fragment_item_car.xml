@@ -20,6 +20,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="branch address"
+                android:textAppearance="@android:style/TextAppearance.Holo.Medium"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <TextView
@@ -27,6 +29,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="company name"
+                android:textColor="@android:color/holo_green_dark"
                 android:textSize="24sp" />
 
             <TextView
@@ -34,6 +37,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="mile age"
+                android:textColor="@android:color/black"
                 android:textSize="24sp" />
 
             <TextView
@@ -41,6 +45,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="car number"
+                android:textColor="@android:color/holo_green_dark"
                 android:textSize="24sp" />
 
             <Button
