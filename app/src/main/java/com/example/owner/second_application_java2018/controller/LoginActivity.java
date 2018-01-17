@@ -35,7 +35,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private ImageView userImageView;
     private ImageView passwordImageView;
     private Button forgotPasswordButton;
-    private Button registBeutton;
+    private Button registButton;
     private Button guestButton;
 
     /**
@@ -52,12 +52,12 @@ public class LoginActivity extends Activity implements View.OnClickListener {
          userImageView = (ImageView)findViewById( R.id.userImageView );
         passwordImageView = (ImageView)findViewById( R.id.passwordImageView );
         forgotPasswordButton = (Button)findViewById( R.id.forgotPasswordButton );
-        registBeutton = (Button)findViewById( R.id.registBeutton );
+        registButton = (Button)findViewById( R.id.registButton );
         guestButton = (Button)findViewById( R.id.guestButton );
 
         loginButton.setOnClickListener( this );
         forgotPasswordButton.setOnClickListener( this );
-        registBeutton.setOnClickListener( this );
+        registButton.setOnClickListener( this );
         guestButton.setOnClickListener( this );
     }
 
@@ -73,7 +73,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             // Handle clicks for loginButton
         } else if ( v == forgotPasswordButton ) {
             // Handle clicks for forgotPasswordButton
-        } else if ( v == registBeutton ) {
+        } else if ( v == registButton ) {
             Intent intent = new Intent(LoginActivity.this,addCustomerActivity.class);
             startActivity(intent);
         } else if ( v == guestButton ) {
