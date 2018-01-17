@@ -31,6 +31,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         manager.getCars();
         manager.getCarModels();
         manager.getOrders();
+        loadSharedPreferences();
         //SystemClock.sleep(7000);
 
         /*final ContentValues contentValues = new ContentValues();
