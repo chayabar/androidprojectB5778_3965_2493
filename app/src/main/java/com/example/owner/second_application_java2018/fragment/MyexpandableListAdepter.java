@@ -18,7 +18,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.controller.LoginActivity;
 import com.example.owner.second_application_java2018.model.backend.ArrayDataFilter;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
@@ -29,8 +28,6 @@ import com.example.owner.second_application_java2018.model.entities.Car;
 import com.example.owner.second_application_java2018.model.entities.Enums;
 import com.example.owner.second_application_java2018.model.entities.Order;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -202,17 +199,17 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
                 TextView branchAddress = (TextView) item.findViewById(R.id.branchAddress);
                 String bAddress=manager.getBranchByBranchNumber(selectedCar.getHouseBranch()).getAddress();
-                branchAddress.setText(bAddress);
+                branchAddress.setText(branchAddress.getText() + " : " + bAddress);
 
                 TextView companyName = (TextView) item.findViewById(R.id.companyName);
                 String cName=manager.getCarModelByID(selectedCar.getModelCode()).getCompanyName();
-                companyName.setText(cName);
+                companyName.setText(companyName.getText() + " : " + cName);
 
                 TextView mileAge =(TextView) item.findViewById(R.id.mileAge);
-                mileAge.setText(String.valueOf(selectedCar.getMileAge()));
+                mileAge.setText(mileAge.getText() + " : " + String.valueOf(selectedCar.getMileAge()));
 
                 TextView carNumber =(TextView) item.findViewById(R.id.carNumber);
-                carNumber.setText(String.valueOf(selectedCar.getCarNumber()));
+                carNumber.setText(carNumber.getText() + " : " + String.valueOf(selectedCar.getCarNumber()));
 
                 b_rentCar = (Button) item.findViewById(R.id.buttonRent);
                 b_rentCar.setOnClickListener(this);
@@ -313,10 +310,10 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 }
                 @Override
                 protected Boolean doInBackground(Void... params) {
-                    return DBManagerFactory.getManager().addOrder(cv);
+                    return manager.addOrder(cv);
                 }
             }.execute();
-            tempCar= manager.getAvailableCars();
+            //tempCar= manager.getAvailableCars();
         }
     }
 

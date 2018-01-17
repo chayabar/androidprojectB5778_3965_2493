@@ -154,14 +154,11 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
+            //getOrdersFromServer();
             return isDone;
         }
         catch (IOException e)
         {
-            //printLog("addStudent Exception:\n" + e);
             return false;
         }
     }
@@ -229,13 +226,8 @@ public class MySQL_DBManager implements DB_manager {
         return CarModelList;
     }
 
-    @Override
-    public ArrayList<Car> getCars()
+    public ArrayList<Car> getCarsFromServer()
     {
-        if(!CarList.isEmpty())
-        {
-            return CarList;
-        }
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
@@ -257,6 +249,16 @@ public class MySQL_DBManager implements DB_manager {
                 return null;
             }
         }.execute();
+        return CarList;
+    }
+
+    @Override
+    public ArrayList<Car> getCars()
+    {
+        if(CarList.isEmpty())
+        {
+            getCarsFromServer();
+        }
         return CarList;
     }
 
@@ -291,13 +293,8 @@ public class MySQL_DBManager implements DB_manager {
         return BranchList;
     }
 
-    @Override
-    public ArrayList<Order> getOrders()
+    public ArrayList<Order> getOrdersFromServer()
     {
-        if(!OrderList.isEmpty())
-        {
-            return OrderList;
-        }
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
@@ -319,6 +316,17 @@ public class MySQL_DBManager implements DB_manager {
                 return null;
             }
         }.execute();
+        return OrderList;
+    }
+
+
+    @Override
+    public ArrayList<Order> getOrders()
+    {
+        if(OrderList.isEmpty())
+        {
+            getOrdersFromServer();
+        }
         return OrderList;
     }
 
