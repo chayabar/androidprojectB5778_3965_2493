@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.example.owner.second_application_java2018.R;
 
-//  yishar koach!
+//
 public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
