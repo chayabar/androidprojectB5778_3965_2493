@@ -2,21 +2,14 @@ package com.example.owner.second_application_java2018.controller;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
-import com.example.owner.second_application_java2018.model.backend.DB_manager;
-import com.example.owner.second_application_java2018.model.datasource.MySQL_DBManager;
 
 //  yishar koach!
 public class LoginActivity extends Activity implements View.OnClickListener {
@@ -42,9 +35,8 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     private ImageView userImageView;
     private ImageView passwordImageView;
     private Button forgotPasswordButton;
-    private Button registButton;
+    private Button registBeutton;
     private Button guestButton;
-    private Switch savePasswordSwitch;
 
     /**
      * Find the Views in the layout<br />
@@ -57,16 +49,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         userNameEditText = (EditText)findViewById( R.id.userNameEditText );
         loginButton = (Button)findViewById( R.id.loginButton );
         memberLoginTextView = (TextView)findViewById( R.id.memberLoginTextView );
-        userImageView = (ImageView)findViewById( R.id.userImageView );
+         userImageView = (ImageView)findViewById( R.id.userImageView );
         passwordImageView = (ImageView)findViewById( R.id.passwordImageView );
         forgotPasswordButton = (Button)findViewById( R.id.forgotPasswordButton );
-        registButton = (Button)findViewById( R.id.registButton );
+        registBeutton = (Button)findViewById( R.id.registBeutton );
         guestButton = (Button)findViewById( R.id.guestButton );
-        savePasswordSwitch=(Switch)findViewById( R.id.savePasswordSwitch);
 
         loginButton.setOnClickListener( this );
         forgotPasswordButton.setOnClickListener( this );
-        registButton.setOnClickListener( this );
+        registBeutton.setOnClickListener( this );
         guestButton.setOnClickListener( this );
     }
 
@@ -79,56 +70,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         if ( v == loginButton ) {
-            loadSharedPreferences();
-            checkSharedPreferences();
+            // Handle clicks for loginButton
         } else if ( v == forgotPasswordButton ) {
             // Handle clicks for forgotPasswordButton
-        } else if ( v == registButton ) {
+        } else if ( v == registBeutton ) {
             Intent intent = new Intent(LoginActivity.this,addCustomerActivity.class);
             startActivity(intent);
         } else if ( v == guestButton ) {
-            enter();
-        }
-    }
-
-    private void enter(){
-        Intent intent = new Intent(LoginActivity.this,MainNavigationActivity.class);
-        startActivity(intent);
-    }
-
-    private void checkSharedPreferences(){
-       // Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        DB_manager manager = DBManagerFactory.getManager();
-
-        if(manager.checkUsernameAndPassword(userNameEditText.toString(),Integer.valueOf(this.passwordEditText.getText().toString()))) {
-            enter();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            boolean savePass = savePasswordSwitch.getShowText();
-            editor.putBoolean("savePass", savePass);
-            editor.commit();
-        }
-        else
-            Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
-
-
-    }
-
-    private void loadSharedPreferences() {
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);
-        if (! SavePass )
-            return;
-        else {
-            if (sharedPreferences.contains("NAME")) {
-                userNameEditText.setText(sharedPreferences.getString("NAME", null));
-                Toast.makeText(this, "load name", Toast.LENGTH_SHORT).show();
-            }
-            if (sharedPreferences.contains("ID")) {
-                int id = sharedPreferences.getInt("ID", 0);
-                passwordEditText.setText(String.valueOf(id));
-                Toast.makeText(this, "load id", Toast.LENGTH_SHORT).show();
-            }
+            Intent intent = new Intent(LoginActivity.this,MainNavigationActivity.class);
+            startActivity(intent);
         }
     }
 

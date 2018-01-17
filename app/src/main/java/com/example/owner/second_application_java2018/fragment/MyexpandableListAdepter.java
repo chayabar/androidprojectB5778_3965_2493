@@ -18,10 +18,14 @@ import com.example.owner.second_application_java2018.model.backend.ArrayDataFilt
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.backend.ExpandableDataFilter;
+import com.example.owner.second_application_java2018.model.backend.RentConst;
 import com.example.owner.second_application_java2018.model.entities.Branch;
 import com.example.owner.second_application_java2018.model.entities.Car;
+import com.example.owner.second_application_java2018.model.entities.Enums;
+import com.example.owner.second_application_java2018.model.entities.Order;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by User on 31/01/2017.
@@ -38,6 +42,9 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     android.app.Activity activity;
     ArrayAdapter<Integer> adapterCars;
     private String mType;
+    Car selectedCar=null;
+
+
 
     private String carTag="Cars";
     private String branchTag="Branches";
@@ -183,21 +190,21 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         else {
             if (mType.compareTo(carTag) == 0) {
                 item = activity.getLayoutInflater().inflate(R.layout.fragment_item_car, parent, false);
-                final Car c = tempCar.get(groupPosition);
+                selectedCar = tempCar.get(groupPosition);
 
                 TextView branchAddress = (TextView) item.findViewById(R.id.branchAddress);
-                String bAddress=manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
+                String bAddress=manager.getBranchByBranchNumber(selectedCar.getHouseBranch()).getAddress();
                 branchAddress.setText(bAddress);
 
                 TextView companyName = (TextView) item.findViewById(R.id.companyName);
-                String cName=manager.getCarModelByID(c.getModelCode()).getCompanyName();
+                String cName=manager.getCarModelByID(selectedCar.getModelCode()).getCompanyName();
                 companyName.setText(cName);
 
                 TextView mileAge =(TextView) item.findViewById(R.id.mileAge);
-                mileAge.setText(String.valueOf(c.getMileAge()));
+                mileAge.setText(String.valueOf(selectedCar.getMileAge()));
 
                 TextView carNumber =(TextView) item.findViewById(R.id.carNumber);
-                carNumber.setText(String.valueOf(c.getCarNumber()));
+                carNumber.setText(String.valueOf(selectedCar.getCarNumber()));
 
                 b_rentCar = (Button) item.findViewById(R.id.buttonRent);
                 b_rentCar.setOnClickListener(this);
@@ -268,24 +275,20 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     public void onClick(View v) {
 
         if (v == b_rentCar) {
-            // intent action for rent car, start reservation
-            /*FragmentTransaction ft;
-            Fragment fragment;
-            fragment = new addOrderFragment();
-            ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content, fragment);
-            ft.commit();*/
+            Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_SHORT).show();
+            // rent the car
+            Order valuesOrder=new Order();
+            valuesOrder.setOrderStatus(Enums.OrderStatus.OPEN);
+            valuesOrder.setCharge(0);
+            valuesOrder.setCustomerID(208493965);
+            valuesOrder.setCarNumber(selectedCar.getCarNumber());
+            valuesOrder.setStartMileAge(selectedCar.getMileAge());
+            valuesOrder.setStartRent(new Date());
+            valuesOrder.setEndRent(new Date());
+            valuesOrder.setEndMileAge(100);
+            manager.addOrder(RentConst.OrderToContentValues(valuesOrder));
+
         }
-//        if (v == b_phone) {
-//            // intent action phone
-//            String s2=phone.getText().toString().replace("phone: ","");
-//
-//            Intent intent = new Intent(Intent.ACTION_DIAL);
-//            intent.setData(Uri.parse("tel:" + s2));
-//            if (intent.resolveActivity(this.activity.getPackageManager()) != null) {
-//                this.activity.startActivity(intent);
-//            }
-//        }
     }
 
 

@@ -51,6 +51,7 @@ public class ExitDialogFragment extends DialogFragment
                         startActivity(intent);
 
 
+
                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {

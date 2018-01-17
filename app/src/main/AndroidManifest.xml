@@ -13,6 +13,8 @@
         android:roundIcon="@mipmap/rent_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name=".model.datasource.ForegroundServiceCarStatusChange">
+            </service>
         <activity
             android:name=".controller.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
