@@ -108,8 +108,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
        // Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         DB_manager manager = DBManagerFactory.getManager();
+        String name=userNameEditText.getText().toString();
+        int id=Integer.valueOf(this.passwordEditText.getText().toString());
 
-        if(manager.checkUsernameAndPassword(userNameEditText.toString(),Integer.valueOf(this.passwordEditText.getText().toString()))) {
+        if(manager.checkUsernameAndPassword(name,id)) {
             SharedPreferences.Editor editor = sharedPreferences.edit();
             boolean savePass = savePasswordSwitch.getShowText();
             editor.putBoolean("savePass", savePass);

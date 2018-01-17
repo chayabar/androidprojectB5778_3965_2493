@@ -1,5 +1,9 @@
 package com.example.owner.second_application_java2018.fragment;
 
+import android.content.ContentValues;
+import android.content.SharedPreferences;
+import android.os.AsyncTask;
+import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -14,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.owner.second_application_java2018.R;
+import com.example.owner.second_application_java2018.controller.LoginActivity;
 import com.example.owner.second_application_java2018.model.backend.ArrayDataFilter;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
@@ -24,7 +29,10 @@ import com.example.owner.second_application_java2018.model.entities.Car;
 import com.example.owner.second_application_java2018.model.entities.Enums;
 import com.example.owner.second_application_java2018.model.entities.Order;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -64,7 +72,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         }
         if(mType.compareTo(carTag)==0)
         {
-            tempCar= manager.getCars();
+            tempCar= manager.getAvailableCars();
         }
 
     }
@@ -275,19 +283,40 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     public void onClick(View v) {
 
         if (v == b_rentCar) {
-            Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
             // rent the car
             Order valuesOrder=new Order();
             valuesOrder.setOrderStatus(Enums.OrderStatus.OPEN);
             valuesOrder.setCharge(0);
-            valuesOrder.setCustomerID(208493965);
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
+            int CustomerID=sharedPreferences.getInt("ID", 0);
+
+            valuesOrder.setCustomerID(CustomerID);
             valuesOrder.setCarNumber(selectedCar.getCarNumber());
             valuesOrder.setStartMileAge(selectedCar.getMileAge());
-            valuesOrder.setStartRent(new Date());
-            valuesOrder.setEndRent(new Date());
-            valuesOrder.setEndMileAge(100);
-            manager.addOrder(RentConst.OrderToContentValues(valuesOrder));
 
+            Date d=Calendar.getInstance().getTime();
+            valuesOrder.setStartRent(d);
+            valuesOrder.setEndRent(d);
+            valuesOrder.setEndMileAge(selectedCar.getMileAge());
+            valuesOrder.setFuelFilling(false);
+            final ContentValues cv=RentConst.OrderToContentValues(valuesOrder);
+            //manager.addOrder(cv);
+
+            new AsyncTask<Void, Void, Boolean>() {
+                @Override
+                protected void onPostExecute(Boolean idResult) {
+                    super.onPostExecute(idResult);
+                    //if (idResult == true)
+                        //Toast.makeText( "the order inserted: " + idResult, Toast.LENGTH_LONG).show();
+                }
+                @Override
+                protected Boolean doInBackground(Void... params) {
+                    return DBManagerFactory.getManager().addOrder(cv);
+                }
+            }.execute();
+            tempCar= manager.getAvailableCars();
         }
     }
 

@@ -127,7 +127,7 @@ public class MySQL_DBManager implements DB_manager {
     @Override
     public boolean addOrder(final ContentValues values)
     {
-        final Boolean[] isDone = new Boolean[1];
+        /*final Boolean[] isDone = new Boolean[1];
         new AsyncTask<Void,Void,Boolean>(){
             @Override
             protected void onPostExecute(Boolean aBoolean) {
@@ -149,7 +149,21 @@ public class MySQL_DBManager implements DB_manager {
                 }
             }
         }.execute();
-        return isDone[0];
+        return isDone[0];*/
+        try
+        {
+            String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
+            boolean isDone = Boolean.parseBoolean(result);
+            //if (id == true)
+            //    SetUpdate();
+            //printLog("addStudent:\n" + result);
+            return isDone;
+        }
+        catch (IOException e)
+        {
+            //printLog("addStudent Exception:\n" + e);
+            return false;
+        }
     }
 
     @Override
@@ -362,10 +376,12 @@ public class MySQL_DBManager implements DB_manager {
         return OpenOrders;
     }
 
+
+    @Override
     public boolean checkUsernameAndPassword(String lastName, int ID)
     {
         for(Customer item : getCustomers())
-            if(item.getLastName()==lastName&&item.getID()==ID)
+            if((item.getLastName().compareTo(lastName))==0 && (item.getID()==ID))
                 return true;
         return false;
     }
