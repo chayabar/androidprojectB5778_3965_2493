@@ -52,7 +52,8 @@ public class RentConst {
     }
 
     public static class OrderConst {
-        public static final String CUSTUMERID = "_customerID";
+        public static final String ORDERID = "_orderID";
+        public static final String CUSTUMERID = "customerID";
         public static final String ORDERSTATUS = "orderStatus";
         public static final String CARNUMBER = "carNumber";
         public static final String STARTRENT = "startRent";
@@ -62,7 +63,6 @@ public class RentConst {
         public static final String FUELFILLING = "fuelFilling";
         public static final String FUELLITTER = "fuelLitter";
         public static final String CHARGE = "charge";
-        public static final String ORDERID = "orderID";
     }
 
     public static ContentValues BranchToContentValues(Branch branch) {
