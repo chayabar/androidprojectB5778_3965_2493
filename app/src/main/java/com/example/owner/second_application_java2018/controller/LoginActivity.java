@@ -33,7 +33,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         manager.getCars();
         manager.getCarModels();
         manager.getOrders();
-        SystemClock.sleep(7000);
+        //SystemClock.sleep(7000);
 
         /*final ContentValues contentValues = new ContentValues();
         contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
