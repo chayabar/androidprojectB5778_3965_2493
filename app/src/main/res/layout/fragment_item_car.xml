@@ -47,7 +47,9 @@
                 android:id="@+id/buttonRent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="rent this car" />
+                android:background="@color/button_background"
+                android:text="Rent This Car"
+                android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
 
         </LinearLayout>
 
