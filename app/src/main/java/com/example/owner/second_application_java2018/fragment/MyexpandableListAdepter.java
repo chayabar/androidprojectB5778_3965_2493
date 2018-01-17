@@ -1,6 +1,7 @@
 package com.example.owner.second_application_java2018.fragment;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
@@ -177,19 +178,19 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             parkingSpaces = (TextView) item.findViewById(R.id.parkingSpaces);
             parkingSpaces.setText(parkingSpaces.getText() + ": " + b.getParkingSpaces());
 
-            /*ListView listCars = (ListView) item.findViewById(R.id.listCars);
+            ListView listCars = (ListView) item.findViewById(R.id.listCars);
             final ArrayList<Car> CarsInBranch = manager.getAvailableCarsByBranch(b.getBranchNumber());
-            final ArrayList<Integer> namesA = new ArrayList<Integer>();
+            final ArrayList<Integer> namesA = new ArrayList<>();
 
             for (Car a : CarsInBranch)
                 namesA.add(a.getModelCode());
 
             final Context context = activity.getApplicationContext();
-            adapterCars = new ArrayAdapter<Integer>(context,android.R.layout.simple_list_item_1, namesA);
+            adapterCars = new ArrayAdapter<Integer>(context,android.R.layout.simple_expandable_list_item_1, namesA);
 
 
             listCars.setAdapter(adapterCars);
-            setListViewHeightBasedOnChildren(listCars);*/
+            setListViewHeightBasedOnChildren(listCars);
 
         }
         else {
