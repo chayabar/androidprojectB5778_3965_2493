@@ -44,6 +44,9 @@ public interface DB_manager {
     ArrayList<Car> getCars();
     ArrayList<CarModel> getCarModels();
     ArrayList<Branch> getBranchs();
+
+    ArrayList<Order> getOrdersFromServer();
+
     ArrayList<Order> getOrders();
     ArrayList<Car> getAvailableCars();
     ArrayList<Car> getAvailableCarsByBranch(int branchNumber);

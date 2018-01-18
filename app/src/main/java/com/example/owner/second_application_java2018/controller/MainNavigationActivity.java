@@ -21,6 +21,7 @@ import com.example.owner.second_application_java2018.fragment.ContactFragment;
 import com.example.owner.second_application_java2018.fragment.ExitDialogFragment;
 import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 import com.example.owner.second_application_java2018.fragment.FragmentReserveACar;
+import com.example.owner.second_application_java2018.fragment.YourReservationFragment;
 
 
 public class MainNavigationActivity extends AppCompatActivity
@@ -124,6 +125,10 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_yourReservation) {
+            fragment = new YourReservationFragment();
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();
 
         } else if (id == R.id.nav_disconnect) {
             showDialog();

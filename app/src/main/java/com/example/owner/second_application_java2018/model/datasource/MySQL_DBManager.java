@@ -154,7 +154,6 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //getOrdersFromServer();
             return isDone;
         }
         catch (IOException e)
@@ -293,6 +292,7 @@ public class MySQL_DBManager implements DB_manager {
         return BranchList;
     }
 
+    @Override
     public ArrayList<Order> getOrdersFromServer()
     {
         new AsyncTask<Void,Void,Void>(){
@@ -348,7 +348,7 @@ public class MySQL_DBManager implements DB_manager {
          * @return list of cars.
          */
         ArrayList<Car> AvailableCars= getCars();
-        for (final Order item : getOrders())
+        for (final Order item : getOrdersFromServer())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 // AvailableCars.removeIf(p -> p.getCarNumber()== item.getCarNumber());///?????????????????????????????????
                 Car c=getCarByID(item.getCarNumber());

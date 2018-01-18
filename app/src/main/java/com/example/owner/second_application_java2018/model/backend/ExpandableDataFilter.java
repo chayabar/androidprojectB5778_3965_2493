@@ -16,7 +16,7 @@ public class ExpandableDataFilter extends Filter
 {
     DB_manager manager= DBManagerFactory.getManager();
     public ArrayList<Branch> branches =manager.getBranchs();
-    public ArrayList<Car> cars =manager.getCars();
+    public ArrayList<Car> cars =manager.getAvailableCars();
 
     //public ArrayList<Activity> activities=manager.getListOfActivities();
     String type;

@@ -1,5 +1,6 @@
 package com.example.owner.second_application_java2018.fragment;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -59,7 +60,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     private Button b_rentCar;
 
 
-    public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, android.app.Activity mactivity)
+    public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, Activity mactivity)
     {
         mType=type;
         expandableListView = myExpandableListView;
@@ -281,7 +282,6 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     public void onClick(View v) {
 
         if (v == b_rentCar) {
-            Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
             // rent the car
             Order valuesOrder=new Order();
             valuesOrder.setOrderStatus(Enums.OrderStatus.OPEN);
@@ -306,15 +306,24 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 @Override
                 protected void onPostExecute(Boolean idResult) {
                     super.onPostExecute(idResult);
-                    //if (idResult == true)
-                        //Toast.makeText( "the order inserted: " + idResult, Toast.LENGTH_LONG).show();
+                    if (idResult == true)
+
+                        Toast.makeText(activity.getApplicationContext(), "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 protected Boolean doInBackground(Void... params) {
                     return manager.addOrder(cv);
                 }
             }.execute();
-            //tempCar= manager.getAvailableCars();
+            manager.getOrdersFromServer();
+            //Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
+
+            /*FragmentTransaction ft;
+            Fragment fragment;
+            fragment = new FragmentBranches();
+            ft = this.activity.getFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();*/
         }
     }
 
