@@ -362,7 +362,7 @@ public class MySQL_DBManager implements DB_manager {
         /**This method is used to check which cars are available for rent at a particular branch.
          * @return list of cars.
          */
-        ArrayList<Car> AvailableCars=null;
+        ArrayList<Car> AvailableCars=new ArrayList<Car>();
         for (Car item : getCars())
             if (item.getHouseBranch()==branchNumber) {
                 AvailableCars.add(item);
@@ -376,7 +376,7 @@ public class MySQL_DBManager implements DB_manager {
          * ie the vehicle is still leased.
          * @return list of orders
          */
-        ArrayList<Order> OpenOrders= null;
+        ArrayList<Order> OpenOrders =new ArrayList<Order>();
         for (Order item : getOrders())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 OpenOrders.add(item);
