@@ -75,7 +75,11 @@ public class MainNavigationActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
+           // super.onBackPressed();
+            Intent intent = new Intent(this,MainNavigationActivity.class);
+            startActivity(intent);
+
+
         }
     }
 

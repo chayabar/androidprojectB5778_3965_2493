@@ -333,6 +333,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 }
             }.execute();
             manager.getOrdersFromServer();
+
             //Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
 
             /*FragmentTransaction ft;
@@ -341,6 +342,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             ft = this.activity.getFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();*/
+
         }
     }
 
