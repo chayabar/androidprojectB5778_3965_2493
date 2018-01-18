@@ -40,7 +40,9 @@
                 android:id="@+id/b_mapLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Button" />
+                android:background="@color/button_background"
+                android:text="Branch Location"
+                android:textAppearance="@android:style/TextAppearance.Holo.Medium" />
 
         </LinearLayout>
 
@@ -69,7 +71,7 @@
                     android:id="@+id/listCars"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@android:color/holo_orange_light"
+                    android:background="@color/list_background2"
                     android:headerDividersEnabled="false"
                     android:scrollbars="none" />
 

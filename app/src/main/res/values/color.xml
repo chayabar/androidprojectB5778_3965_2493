@@ -9,4 +9,6 @@
     <color name="button_background">#edda4f</color>
     <color name="button_background_2">#4a76e6</color>
     <color name="button_text">#4370e4</color>
+    <color name="list_background2">#fbf8ac</color>
+
 </resources>
