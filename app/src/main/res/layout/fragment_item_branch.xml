@@ -36,6 +36,12 @@
                 android:text="Parking spaces"
                 android:textSize="24sp" />
 
+            <Button
+                android:id="@+id/b_mapLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Button" />
+
         </LinearLayout>
 
         <LinearLayout

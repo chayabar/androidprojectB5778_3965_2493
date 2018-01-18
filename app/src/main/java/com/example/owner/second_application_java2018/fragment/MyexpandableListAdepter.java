@@ -3,7 +3,9 @@ package com.example.owner.second_application_java2018.fragment;
 import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.preference.PreferenceManager;
 import android.view.View;
@@ -52,12 +54,12 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     Car selectedCar=null;
 
 
-
     private String carTag="Cars";
     private String branchTag="Branches";
 
 
     private Button b_rentCar;
+    private Button b_mapLink;
 
 
     public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, Activity mactivity)
@@ -178,6 +180,21 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             Address.setText(Address.getText() + ": " + b.getAddress().toString());
             parkingSpaces = (TextView) item.findViewById(R.id.parkingSpaces);
             parkingSpaces.setText(parkingSpaces.getText() + ": " + b.getParkingSpaces());
+            b_mapLink = (Button) item.findViewById(R.id.b_mapLink);
+
+            b_mapLink.setOnClickListener(this);
+            b_mapLink.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String a=b.getAddress();
+                    String[] separate = a.split(" ");// street number city
+                    String address = separate[2]+","+separate[0]+","+separate[1];// city street number
+                    String url = "http://maps.google.com/maps?daddr=" + address;
+                    Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                    v.getContext().startActivity(intent);
+                }
+            });
+
 
             ListView listCars = (ListView) item.findViewById(R.id.listCars);
             final ArrayList<Car> CarsInBranch = manager.getAvailableCarsByBranch(b.getBranchNumber());
