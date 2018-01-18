@@ -8,18 +8,20 @@
     <TextView
         android:id="@+id/branchAddressTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_height="46dp"
+        android:layout_weight="1.09"
+        android:background="@android:color/white"
         android:text="Address "
-        android:textAlignment="viewStart"
-        android:textSize="20sp" />
+        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+        android:textColor="@color/colorAccent" />
 
     <TextView
         android:id="@+id/parkingNumTextView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="46dp"
+        android:background="@android:color/white"
         android:text="Number of parking spaces "
-        android:textAlignment="viewEnd"
-        android:textSize="20sp" />
+        android:textAppearance="@android:style/TextAppearance.Holo.Large"
+        android:textColor="@color/colorAccent" />
 
 </LinearLayout>
