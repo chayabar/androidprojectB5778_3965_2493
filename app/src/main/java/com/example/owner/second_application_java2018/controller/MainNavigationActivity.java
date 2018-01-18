@@ -1,7 +1,9 @@
 package com.example.owner.second_application_java2018.controller;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -24,7 +26,6 @@ import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 import com.example.owner.second_application_java2018.fragment.FragmentReserveACar;
 import com.example.owner.second_application_java2018.fragment.YourReservationFragment;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
-import com.example.owner.second_application_java2018.model.entities.Customer;
 import com.example.owner.second_application_java2018.model.entities.Order;
 
 
@@ -32,7 +33,7 @@ public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     Order userOrder;
-    Customer currentCustomer;
+    int currentCustomer=-1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,9 @@ public class MainNavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        currentCustomer=sharedPreferences.getInt("ID", 0);
 
 //service service started if something cahnged sends broadcast
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -112,9 +116,11 @@ public class MainNavigationActivity extends AppCompatActivity
 
     private boolean isCustomerHaveOrder()
     {
+        if(currentCustomer==-1)
+            return false;
         for( Order orederOpen : DBManagerFactory.getManager().getOpenOrders())
         {
-            if(currentCustomer.getID()==orederOpen.getCustomerID())
+            if(currentCustomer==orederOpen.getCustomerID())
                 return true;
         }
         return false;
@@ -140,10 +146,12 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_reserveAcar) {
-            fragment = new FragmentReserveACar();
-            ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content, fragment);
-            ft.commit();
+            if(currentCustomer!=-1) {
+                fragment = new FragmentReserveACar();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content, fragment);
+                ft.commit();
+            }
 
         } else if (id == R.id.nav_yourReservation) {
             if(isCustomerHaveOrder() ) {
