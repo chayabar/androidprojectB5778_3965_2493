@@ -414,6 +414,7 @@ public class MySQL_DBManager implements DB_manager {
         return null;
     }
 
+    @Override
     public void closeExistOrder(int orderId, float km)
     {
         Order order=getOrderByID(orderId);
@@ -428,7 +429,11 @@ public class MySQL_DBManager implements DB_manager {
             order.setCharge(calculateCharge);
             order.setOrderStatus(Enums.OrderStatus.CLOSE);
 
+            Car car= getCarByID(order.getCarNumber());
+            car.setMileAge(km);
+
             //updateOrder(order.getOrderID(), OrderToContentValues(order));
+            //updateCar(car.getCarNumber(), CarToContentValues(car));
         }
     }
 
@@ -441,6 +446,7 @@ public class MySQL_DBManager implements DB_manager {
         }
         return b;
     }
+
 
     public CarModel getCarModelByID(int ID){
         for(CarModel cm : getCarModels())

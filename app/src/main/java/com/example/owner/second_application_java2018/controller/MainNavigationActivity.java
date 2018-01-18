@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.fragment.ContactFragment;
@@ -22,10 +23,16 @@ import com.example.owner.second_application_java2018.fragment.ExitDialogFragment
 import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 import com.example.owner.second_application_java2018.fragment.FragmentReserveACar;
 import com.example.owner.second_application_java2018.fragment.YourReservationFragment;
+import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
+import com.example.owner.second_application_java2018.model.entities.Customer;
+import com.example.owner.second_application_java2018.model.entities.Order;
 
 
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+    Order userOrder;
+    Customer currentCustomer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +106,16 @@ public class MainNavigationActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
 
+    private boolean isCustomerHaveOrder()
+    {
+        for( Order orederOpen : DBManagerFactory.getManager().getOpenOrders())
+        {
+            if(currentCustomer.getID()==orederOpen.getCustomerID())
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
@@ -125,10 +142,15 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_yourReservation) {
-            fragment = new YourReservationFragment();
-            ft = getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content, fragment);
-            ft.commit();
+            if(isCustomerHaveOrder() ) {
+                fragment = new YourReservationFragment();
+                ft = getSupportFragmentManager().beginTransaction();
+                ft.replace(R.id.content, fragment);
+                ft.commit();
+            }
+            else
+                Toast.makeText(this, "there is no open reservation", Toast.LENGTH_LONG).show();
+
 
         } else if (id == R.id.nav_disconnect) {
             showDialog();

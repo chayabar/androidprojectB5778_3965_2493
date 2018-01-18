@@ -50,27 +50,6 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
     private Button websiteButton;
     private ImageButton websiteImageButton;
 
-    /**
-     * Find the Views in the layout<br />
-     * <br />
-     * Auto-created on 2018-01-09 12:41:01 by Android Layout Finder
-     * (http://www.buzzingandroid.com/tools/android-layout-finder)
-     */
-    private void findViews() {
-        phoneButton = (Button)getActivity().findViewById( R.id.phoneButton );
-        phoneImageButton = (ImageButton)getActivity().findViewById( R.id.phoneImageButton );
-        emailButton = (Button)getActivity().findViewById( R.id.emailButton );
-        emailImageButton = (ImageButton)getActivity().findViewById( R.id.emailImageButton );
-        websiteButton = (Button)getActivity().findViewById( R.id.websiteButton );
-        websiteImageButton = (ImageButton)getActivity().findViewById( R.id.websiteImageButton );
-
-        phoneButton.setOnClickListener( this );
-        phoneImageButton.setOnClickListener( this );
-        emailButton.setOnClickListener( this );
-        emailImageButton.setOnClickListener( this );
-        websiteButton.setOnClickListener( this );
-        websiteImageButton.setOnClickListener( this );
-    }
 
     /**
      * Handle button click events<br />
