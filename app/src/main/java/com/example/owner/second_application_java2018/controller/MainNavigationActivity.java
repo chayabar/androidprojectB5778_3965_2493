@@ -116,11 +116,11 @@ public class MainNavigationActivity extends AppCompatActivity
 
     private boolean isCustomerHaveOrder()
     {
-        if(currentCustomer==-1)
+        if(currentCustomer== -1)
             return false;
-        for( Order orederOpen : DBManagerFactory.getManager().getOpenOrders())
+        for( Order orderOpen : DBManagerFactory.getManager().getOpenOrders())
         {
-            if(currentCustomer==orederOpen.getCustomerID())
+            if(currentCustomer==orderOpen.getCustomerID())
                 return true;
         }
         return false;
