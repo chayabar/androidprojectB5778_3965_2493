@@ -19,7 +19,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="29dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
     <TextView
@@ -27,16 +27,12 @@
         android:layout_width="0dp"
         android:layout_height="44dp"
         android:text="enter your kilometrage:"
-        app:layout_constraintRight_toLeftOf="@+id/KilometrageEditText"
+        android:layout_marginStart="16dp"
         tools:layout_constraintTop_creator="1"
-        tools:layout_constraintRight_creator="1"
-        android:layout_marginStart="3dp"
-        android:layout_marginEnd="7dp"
+        android:layout_marginTop="8dp"
         tools:layout_constraintLeft_creator="1"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/KilometrageEditText"
-        android:layout_marginTop="10dp"
-        app:layout_constraintHorizontal_bias="1.0" />
+        app:layout_constraintTop_toTopOf="@+id/KilometrageEditText" />
 
     <EditText
         android:id="@+id/KilometrageEditText"
@@ -47,7 +43,41 @@
         tools:layout_constraintRight_creator="1"
         tools:layout_constraintBottom_creator="1"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@+id/fuelLitterEditText"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="130dp"
+        app:layout_constraintLeft_toLeftOf="@+id/fuelLitterEditText" />
+
+    <CheckBox
+        android:id="@+id/fuelFillingCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:text="Fuel Filling "
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_marginStart="16dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toBottomOf="@+id/fuelLitterEditText"
+        android:layout_marginTop="4dp"
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="4dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/fuelLitterEditText" />
+
+    <EditText
+        android:id="@+id/fuelLitterEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Number of litters filled"
+        android:inputType="numberDecimal"
+        android:layout_marginStart="9dp"
+        tools:layout_constraintRight_creator="1"
+        tools:layout_constraintBottom_creator="1"
+        app:layout_constraintBottom_toTopOf="@+id/KilometrageEditText"
         app:layout_constraintRight_toRightOf="parent"
-        android:layout_marginBottom="132dp" />
+        tools:layout_constraintLeft_creator="1"
+        android:layout_marginBottom="23dp"
+        app:layout_constraintLeft_toRightOf="@+id/textView" />
 
 </android.support.constraint.ConstraintLayout>

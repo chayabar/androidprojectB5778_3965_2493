@@ -27,7 +27,7 @@ public interface DB_manager {
     boolean removeOrder(long id);
 
     boolean updateCustomer(int id,ContentValues values);*/
-    boolean updateCar(int id, ContentValues values);
+    boolean updateCar(ContentValues values);
   /*  boolean updateBranch(int id,ContentValues values);
     boolean updateOrder(int id,ContentValues values);*/
 
@@ -37,7 +37,12 @@ public interface DB_manager {
     boolean existbranch(ContentValues branch);
     boolean existorder(ContentValues order);*/
 
-    void closeExistOrder(int orderId, float km);
+
+    Order getOpenOrderByCustomer(int currentCustomer);
+
+    boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter);
+
+    boolean updateOrder(ContentValues values);
 
     Branch getBranchByBranchNumber(int BranchNumber);
     CarModel getCarModelByID(int ID);

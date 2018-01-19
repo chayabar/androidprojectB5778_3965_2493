@@ -1,13 +1,13 @@
 package com.example.owner.second_application_java2018.fragment;
 
-import android.app.Activity;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.preference.PreferenceManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
@@ -36,6 +36,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+
 /**
  * Created by User on 31/01/2017.
  */
@@ -48,11 +49,12 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     private ExpandableListView expandableListView;
     private ArrayList<Branch> tempBranch;
     private ArrayList<Car> tempCar;
-    android.app.Activity activity;
+    FragmentActivity activity;
+    Fragment fragment;
     ArrayAdapter<Integer> adapterCars;
     private String mType;
     Car selectedCar=null;
-
+    int currentCustomer=-1;
 
     private String carTag="Cars";
     private String branchTag="Branches";
@@ -62,11 +64,13 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     private Button b_mapLink;
 
 
-    public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, Activity mactivity)
+    public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, Fragment mfragment, int mcurrentCustomer)
     {
         mType=type;
         expandableListView = myExpandableListView;
-        activity = mactivity;
+        activity = mfragment.getActivity();
+        fragment=mfragment;
+        currentCustomer=mcurrentCustomer;
         if(mType.compareTo(branchTag)==0)
         {
             tempBranch = manager.getBranchs();
@@ -304,10 +308,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             valuesOrder.setOrderStatus(Enums.OrderStatus.OPEN);
             valuesOrder.setCharge(0);
 
-            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.activity);
-            int CustomerID=sharedPreferences.getInt("ID", 0);
-
-            valuesOrder.setCustomerID(CustomerID);
+            valuesOrder.setCustomerID(currentCustomer);
             valuesOrder.setCarNumber(selectedCar.getCarNumber());
             valuesOrder.setStartMileAge(selectedCar.getMileAge());
 
@@ -325,7 +326,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                     super.onPostExecute(idResult);
                     if (idResult == true)
 
-                        Toast.makeText(activity.getApplicationContext(), "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
+                        Toast.makeText(activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 protected Boolean doInBackground(Void... params) {
@@ -333,6 +334,18 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 }
             }.execute();
             manager.getOrdersFromServer();
+
+            FragmentTransaction ft=fragment.getActivity().getSupportFragmentManager().beginTransaction();
+            ft.remove(fragment);
+            ft.commit();
+            /*Bundle bundle = new Bundle();
+            bundle.putInt("current customer", currentCustomer);
+            Fragment mfragment = new YourReservationFragment();
+            mfragment.setArguments(bundle);
+            ft=activity.getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, mfragment);
+            ft.commit();*/
+
 
             //Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
 

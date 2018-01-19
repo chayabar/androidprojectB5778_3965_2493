@@ -1,9 +1,7 @@
 package com.example.owner.second_application_java2018.controller;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.DialogFragment;
@@ -26,14 +24,14 @@ import com.example.owner.second_application_java2018.fragment.FragmentBranches;
 import com.example.owner.second_application_java2018.fragment.FragmentReserveACar;
 import com.example.owner.second_application_java2018.fragment.YourReservationFragment;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
-import com.example.owner.second_application_java2018.model.entities.Order;
+import com.example.owner.second_application_java2018.model.backend.DB_manager;
 
 
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    Order userOrder;
     int currentCustomer=-1;
+    DB_manager manager=DBManagerFactory.getManager();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +40,8 @@ public class MainNavigationActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
-        currentCustomer=sharedPreferences.getInt("ID", 0);
+        currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
+
 
 //service service started if something cahnged sends broadcast
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -114,17 +112,6 @@ public class MainNavigationActivity extends AppCompatActivity
 
     @SuppressWarnings("StatementWithEmptyBody")
 
-    private boolean isCustomerHaveOrder()
-    {
-        if(currentCustomer== -1)
-            return false;
-        for( Order orderOpen : DBManagerFactory.getManager().getOpenOrders())
-        {
-            if(currentCustomer==orderOpen.getCustomerID())
-                return true;
-        }
-        return false;
-    }
 
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -132,30 +119,44 @@ public class MainNavigationActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentTransaction ft;
         Fragment fragment;
+        Bundle bundle = new Bundle();
+        bundle.putInt("current customer", currentCustomer);
+
         if (id == R.id.nav_contactUs) {
             // Handle the camera action
             fragment = new ContactFragment();
-             ft = getSupportFragmentManager().beginTransaction();
+            ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
 
         } else if (id == R.id.nav_branches) {
             fragment = new FragmentBranches();
+            fragment.setArguments(bundle);
             ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
 
         } else if (id == R.id.nav_reserveAcar) {
-            if(currentCustomer!=-1) {
+            if (currentCustomer==-1)
+            {
+                Toast.makeText(this, "In order to add a reservation, please log in", Toast.LENGTH_LONG).show();
+
+            }
+            else if(manager.getOpenOrderByCustomer(currentCustomer)==null) {
                 fragment = new FragmentReserveACar();
+                fragment.setArguments(bundle);
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content, fragment);
                 ft.commit();
             }
+            else
+                Toast.makeText(this, "you already have a reservation", Toast.LENGTH_LONG).show();
+
 
         } else if (id == R.id.nav_yourReservation) {
-            if(isCustomerHaveOrder() ) {
+            if(manager.getOpenOrderByCustomer(currentCustomer)!=null ) {
                 fragment = new YourReservationFragment();
+                fragment.setArguments(bundle);
                 ft = getSupportFragmentManager().beginTransaction();
                 ft.replace(R.id.content, fragment);
                 ft.commit();

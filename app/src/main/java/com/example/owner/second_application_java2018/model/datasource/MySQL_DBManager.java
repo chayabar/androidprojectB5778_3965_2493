@@ -19,8 +19,11 @@ import org.json.JSONObject;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
+import static com.example.owner.second_application_java2018.model.backend.RentConst.CarToContentValues;
 import static com.example.owner.second_application_java2018.model.backend.RentConst.ContentValuesToCustomer;
+import static com.example.owner.second_application_java2018.model.backend.RentConst.OrderToContentValues;
 
 /**
  * Created by owner on 22/12/2017.
@@ -35,7 +38,6 @@ public class MySQL_DBManager implements DB_manager {
     final ArrayList<Car> CarList = new ArrayList<Car>();
     final ArrayList<Branch> BranchList = new ArrayList<Branch>();
     final ArrayList<Order> OrderList = new ArrayList<Order>();
-    private boolean isDone;
 
     @Override
     public boolean existCustomer(ContentValues newcustomer) {
@@ -331,15 +333,17 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean updateCar(int id,ContentValues values) {
-        /*Car car = ContentValuesToCar(values);
-        car.setCarNumber(id);
-        for (int i = 0; i < getCars().size(); i++)
-            if (cars.get(i).getCarNumber()== id) {
-                cars.set(i, car);
-                return true;
-            }*/
-        return false;
+    public boolean updateCar(ContentValues values) {
+        try
+        {
+            String result = PHPtools.POST(WEB_URL + "/updateCar.php", values);
+            boolean isDone = Boolean.parseBoolean(result);
+            return isDone;
+        }
+        catch (IOException e)
+        {
+            return false;
+        }
     }
 
     @Override
@@ -415,25 +419,60 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public void closeExistOrder(int orderId, float km)
+    public Order getOpenOrderByCustomer(int currentCustomer)
+    {
+        if(currentCustomer== -1)
+            return null;
+        for( Order orderOpen : getOpenOrders())
+        {
+            if(currentCustomer==orderOpen.getCustomerID())
+                return orderOpen;
+        }
+        return null;
+    }
+
+    @Override
+    public boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter)
     {
         Order order=getOrderByID(orderId);
         if (order!= null)
         {
             order.setEndMileAge(km);
             order.setEndRent(new Date());
+            order.setFuelFilling(fuelFilling);
+            order.setFuelLitter(fuellitter);
+
+            float fuelCostForLitter=8;
+            float KMforLitter=10;
             float chargePerMin=(float)0.1;
-            float chargePerKM=(float)0.6;
-            float calculateCharge=chargePerMin* (order.getStartRent().getTime()- order.getEndRent().getTime())
-                    +chargePerKM*(order.getStartMileAge()-order.getEndMileAge());
+            float chargePerKM=(float)fuelCostForLitter/KMforLitter;
+            long minutes= TimeUnit.MINUTES.convert((order.getEndRent().getTime())-(order.getStartRent().getTime()), TimeUnit.MILLISECONDS);
+            float calculateCharge=chargePerMin* minutes +chargePerKM*(order.getEndMileAge()-order.getStartMileAge());
+            if(fuelFilling)
+                calculateCharge-=fuelCostForLitter*fuellitter;
             order.setCharge(calculateCharge);
             order.setOrderStatus(Enums.OrderStatus.CLOSE);
 
             Car car= getCarByID(order.getCarNumber());
             car.setMileAge(km);
 
-            //updateOrder(order.getOrderID(), OrderToContentValues(order));
-            //updateCar(car.getCarNumber(), CarToContentValues(car));
+            /*if(*/updateCar(CarToContentValues(car));/*)*/
+                return updateOrder( OrderToContentValues(order));
+        }
+        return false;
+    }
+
+    @Override
+    public boolean updateOrder(ContentValues values) {
+        try
+        {
+            String result = PHPtools.POST(WEB_URL + "/updateOrder.php", values);
+            boolean isDone = Boolean.parseBoolean(result);
+            return isDone;
+        }
+        catch (IOException e)
+        {
+            return false;
         }
     }
 

@@ -26,6 +26,7 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
     MyexpandableListAdepter adapterExList;
     private ExpandableListView expandableListView;
     DB_manager manager= DBManagerFactory.getManager();
+    int currentCustomer=-1;
 
     public FragmentBranches() {
         // Required empty public constructor
@@ -55,11 +56,13 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
     {
         final Context context = getActivity().getApplicationContext();
         // Inflate the layout for this fragment
+        currentCustomer = getArguments().getInt("current customer");
+
         View rootView = inflater.inflate(R.layout.fragment_branches, container, false);
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.expanded_list_branches);
 
 
-        adapterExList = new MyexpandableListAdepter(expandableListView, "Branches", getActivity());
+        adapterExList = new MyexpandableListAdepter(expandableListView, "Branches", this, currentCustomer);
 
         expandableListView.setAdapter(adapterExList);
 
@@ -91,7 +94,7 @@ public class FragmentBranches extends Fragment implements SearchView.OnQueryText
     @Override
     public boolean onClose()
     {
-        adapterExList = new MyexpandableListAdepter(expandableListView, "Branches", getActivity());
+        adapterExList = new MyexpandableListAdepter(expandableListView, "Branches", this, currentCustomer);
         expandableListView.setAdapter(adapterExList);
         return false;
     }

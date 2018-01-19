@@ -26,7 +26,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     MyexpandableListAdepter adapterExList;
     private ExpandableListView expandableListView;
     DB_manager manager= DBManagerFactory.getManager();
-
+    int currentCustomer;
 
     public FragmentReserveACar() {
         // Required empty public constructor
@@ -56,11 +56,13 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     {
         final Context context = getActivity().getApplicationContext();
         // Inflate the layout for this fragment
+
+        currentCustomer = getArguments().getInt("current customer");
         View rootView = inflater.inflate(R.layout.fragment_reserve_a_car, container, false);
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.expanded_list_cars);
 
 
-        adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", getActivity());
+        adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", this, currentCustomer);
 
         expandableListView.setAdapter(adapterExList);
 
@@ -90,7 +92,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     @Override
     public boolean onClose()
     {
-        adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", getActivity());
+        adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", this, currentCustomer);
         expandableListView.setAdapter(adapterExList);
         return false;
     }

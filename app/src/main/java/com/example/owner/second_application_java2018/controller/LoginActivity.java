@@ -93,13 +93,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         } else if ( v == registButton ) {
             Intent intent = new Intent(LoginActivity.this,addCustomerActivity.class);
             startActivity(intent);
+
         } else if ( v == guestButton ) {
-            enter();
+            enter(-1);
         }
     }
 
-    private void enter(){
+    private void enter(int id){
         Intent intent = new Intent(LoginActivity.this,MainNavigationActivity.class);
+        intent.putExtra("EXTRA_USER_ID", id);
         startActivity(intent);
     }
 
@@ -115,7 +117,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             boolean savePass = savePasswordSwitch.getShowText();
             editor.putBoolean("savePass", savePass);
             editor.commit();
-            enter();
+            enter(id);
             return;
         }
         else
