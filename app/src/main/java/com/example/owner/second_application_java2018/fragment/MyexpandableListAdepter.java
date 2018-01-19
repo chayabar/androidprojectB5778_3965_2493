@@ -191,8 +191,8 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                 @Override
                 public void onClick(View v) {
                     String a=b.getAddress();
-                    String[] separate = a.split(" ");// street number city
-                    String address = separate[2]+","+separate[0]+","+separate[1];// city street number
+                    String[] separate = a.split(",");// scity,street,number
+                    String address = separate[0]+","+separate[1]+","+separate[2];// city,street,number
                     String url = "http://maps.google.com/maps?daddr=" + address;
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
                     v.getContext().startActivity(intent);
