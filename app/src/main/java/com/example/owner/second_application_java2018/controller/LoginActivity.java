@@ -99,14 +99,19 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    /*This method is used to move to main navigation*/
     private void enter(int id){
         Intent intent = new Intent(LoginActivity.this,MainNavigationActivity.class);
         intent.putExtra("EXTRA_USER_ID", id);
         startActivity(intent);
     }
 
+    /**This method is used to Checks if the username and password are in the system,
+     If so - saves the user's choice to save the password
+     And send to enter function.
+     * @return void
+     */
     private void checkSharedPreferences(){
-       // Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         DB_manager manager = DBManagerFactory.getManager();
         String name=userNameEditText.getText().toString();
@@ -120,12 +125,15 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             enter(id);
             return;
         }
-        else
+        else //to case the password or the user name is incorrect
             Toast.makeText(this, "Incorrect username or password", Toast.LENGTH_LONG).show();
 
 
     }
-
+    /**This method is used to Load the last login and password entered and saved
+     * in the system.
+     * @return void
+     */
     private void loadSharedPreferences() {
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean SavePass = sharedPreferences.getBoolean("SavePass",false);

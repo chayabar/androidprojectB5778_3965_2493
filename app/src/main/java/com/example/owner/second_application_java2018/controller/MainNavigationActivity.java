@@ -101,8 +101,8 @@ public class MainNavigationActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_current_reservation) {
+            yourReservation();
 
-            return true;
         }else if (id==R.id.action_exit){
             showDialog();
         }
@@ -154,17 +154,7 @@ public class MainNavigationActivity extends AppCompatActivity
 
 
         } else if (id == R.id.nav_yourReservation) {
-            if(manager.getOpenOrderByCustomer(currentCustomer)!=null ) {
-                fragment = new YourReservationFragment();
-                fragment.setArguments(bundle);
-                ft = getSupportFragmentManager().beginTransaction();
-                ft.replace(R.id.content, fragment);
-                ft.commit();
-            }
-            else
-                Toast.makeText(this, "there is no open reservation", Toast.LENGTH_LONG).show();
-
-
+            yourReservation();
         } else if (id == R.id.nav_disconnect) {
             showDialog();
         }
@@ -193,5 +183,23 @@ public class MainNavigationActivity extends AppCompatActivity
         // Create and show the dialog.
         DialogFragment newFragment = ExitDialogFragment.newInstance(/*mStackLevel*/0,this);
         newFragment.show(ft, "dialog");
+    }
+
+    public void yourReservation(){
+        if(manager.getOpenOrderByCustomer(currentCustomer)!=null ) {
+            FragmentTransaction ft;
+            Fragment fragment;
+            Bundle bundle = new Bundle();
+            bundle.putInt("current customer", currentCustomer);
+            fragment = new YourReservationFragment();
+            fragment.setArguments(bundle);
+            ft = getSupportFragmentManager().beginTransaction();
+            ft.replace(R.id.content, fragment);
+            ft.commit();
+        }
+        else
+            Toast.makeText(this, "there is no open reservation", Toast.LENGTH_LONG).show();
+
+
     }
 }
