@@ -398,7 +398,7 @@ public class MySQL_DBManager implements DB_manager {
         return false;
     }
 
-    private Order getOrderByID( int orderID)
+    public Order getOrderByID( int orderID)
     {
         for(Order o : getOrders())
         {

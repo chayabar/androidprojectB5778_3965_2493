@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
+import com.example.owner.second_application_java2018.model.entities.Order;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -115,19 +116,19 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
                 protected void onPostExecute(Boolean idResult) {
+                    Order order=manager.getOrderByID(orderID);
                     super.onPostExecute(idResult);
                     if (idResult == true)
+                        //Toast.makeText(getActivity(), "we closed your reservation", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity(), "Final payment: "+order.getCharge()+" Thank You for choosing Take&Go", Toast.LENGTH_LONG).show();
 
-                        Toast.makeText(getActivity(), "we closed your reservation", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 protected Boolean doInBackground(Void... params) {
-
                     return manager.closeExistOrder(orderID, kilometrage, fuelFilling, fuelLitter);
 
                 }
             }.execute();
-
             FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
             ft.remove(this);
             ft.commit();
