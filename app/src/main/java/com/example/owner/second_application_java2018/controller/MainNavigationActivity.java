@@ -44,13 +44,16 @@ public class MainNavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        startService(new Intent(getBaseContext(), ForegroundServiceCarStatusChange.class));
-        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_TIME_TICK));
 
-                currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
+        Intent intent = new Intent(this, ForegroundServiceCarStatusChange.class);
+        startService(intent);
+
+        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_BOOT_COMPLETED));
+
+        currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
 
 
-//service service started if something cahnged sends broadcast
+        //service service started if something cahnged sends broadcast
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
