@@ -13,8 +13,6 @@
         android:roundIcon="@mipmap/rent_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".model.datasource.ForegroundServiceCarStatusChange">
-            </service>
         <activity
             android:name=".controller.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,6 +33,17 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".controller.addCustomerActivity" />
 
+        <receiver
+            android:name=".model.datasource.MyReceiver"
+            android:enabled="true"
+            android:exported="true" >
+        </receiver>
+
+        <service
+            android:name=".model.datasource.ForegroundServiceCarStatusChange"
+            android:enabled="true"
+            android:exported="true">
+        </service>
 
     </application>
 

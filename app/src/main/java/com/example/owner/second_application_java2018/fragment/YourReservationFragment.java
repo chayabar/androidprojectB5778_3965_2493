@@ -1,8 +1,11 @@
 package com.example.owner.second_application_java2018.fragment;
 
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
@@ -14,7 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
@@ -43,12 +46,16 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
         currentCustomer = getArguments().getInt("current customer");
         final float startMileAge=manager.getOpenOrderByCustomer(currentCustomer).getStartMileAge();
 
+        Order nowOrder=manager.getOpenOrderByCustomer(currentCustomer);
         View rootView= inflater.inflate(R.layout.fragment_your_reservation, container, false);
-
+        TextView helloUser= (TextView) rootView.findViewById(R.id.reservationInfo);
+        android.text.format.DateFormat df = new android.text.format.DateFormat();
+        helloUser.setText("hello, your order number "+nowOrder.getOrderID()+"\nfrom date "+df.format("yyyy-MM-dd hh:mm:ss",
+                nowOrder.getStartRent()).toString()+"\nwith start mile age of "+nowOrder.getStartMileAge());
         closeReservationButton=(Button)rootView.findViewById( R.id.closeReservationButton);
         KilometrageEditText= (EditText)rootView.findViewById(R.id.KilometrageEditText);
-        fuelFillingCheckBox= (CheckBox)rootView.findViewById(R.id.fuelFillingCheckBox);
-        fuelLitterEditText= (EditText)rootView.findViewById(R.id.fuelLitterEditText);
+        fuelFillingCheckBox= (CheckBox)rootView.findViewById(R.id.FuelFillingCheckBox);
+        fuelLitterEditText= (EditText)rootView.findViewById(R.id.FuelLitterEditText);
 
         closeReservationButton.setOnClickListener(this);
         closeReservationButton.setEnabled(false);
@@ -101,34 +108,42 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
     @Override
     public void onClick(View v) {
 
-        if(v== closeReservationButton)
-        {
-            final int orderID=manager.getOpenOrderByCustomer(currentCustomer).getOrderID();
-            final float kilometrage=Float.valueOf(KilometrageEditText.getText().toString());
+        if (v == closeReservationButton) {
+            final int orderID = manager.getOpenOrderByCustomer(currentCustomer).getOrderID();
+            final float kilometrage = Float.valueOf(KilometrageEditText.getText().toString());
             StringBuffer result = new StringBuffer();
             result.append(fuelFillingCheckBox.isChecked());
-            final boolean fuelFilling=Boolean.valueOf(result.toString());
+            final boolean fuelFilling = Boolean.valueOf(result.toString());
             final float fuelLitter;
-            if(fuelFilling)
-                fuelLitter=Float.valueOf(fuelLitterEditText.getText().toString());
+            if (fuelFilling)
+                fuelLitter = Float.valueOf(fuelLitterEditText.getText().toString());
             else
-                fuelLitter=0;
+                fuelLitter = 0;
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
                 protected void onPostExecute(Boolean idResult) {
-                    Order order=manager.getOrderByID(orderID);
                     super.onPostExecute(idResult);
-                    if (idResult == true)
-                        //Toast.makeText(getActivity(), "we closed your reservation", Toast.LENGTH_LONG).show();
-                    Toast.makeText(getActivity(), "Final payment: "+order.getCharge()+" Thank You for choosing Take&Go", Toast.LENGTH_LONG).show();
-
                 }
+
                 @Override
                 protected Boolean doInBackground(Void... params) {
                     return manager.closeExistOrder(orderID, kilometrage, fuelFilling, fuelLitter);
 
                 }
             }.execute();
+
+            manager.getOrdersFromServer();
+            SystemClock.sleep(2000);
+            Order order=manager.getOrderByID(orderID);
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setTitle("order closed");
+            builder.setMessage("Final payment: " + order.getCharge() + " Thank You for choosing Take&Go");
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {}
+            });
+            builder.create().show();
+
             FragmentTransaction ft=getActivity().getSupportFragmentManager().beginTransaction();
             ft.remove(this);
             ft.commit();

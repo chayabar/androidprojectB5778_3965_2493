@@ -61,4 +61,5 @@ public interface DB_manager {
     boolean checkUsernameAndPassword(String lastName, int ID);
     Order getOrderByID( int orderID);
 
+    ArrayList<Car> getCarsFromServer();
 }

@@ -56,14 +56,10 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addCustomer.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
             return isDone;
         }
         catch (IOException e)
         {
-            //printLog("addStudent Exception:\n" + e);
             return false;
         }
     }
@@ -75,14 +71,10 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addCarModel.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
             return isDone;
         }
         catch (IOException e)
         {
-            //printLog("addStudent Exception:\n" + e);
             return false;
         }
     }
@@ -94,14 +86,10 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addCar.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
             return isDone;
         }
         catch (IOException e)
         {
-            //printLog("addStudent Exception:\n" + e);
             return false;
         }
     }
@@ -113,14 +101,10 @@ public class MySQL_DBManager implements DB_manager {
         {
             String result = PHPtools.POST(WEB_URL + "/addBranch.php", values);
             boolean isDone = Boolean.parseBoolean(result);
-            //if (id == true)
-            //    SetUpdate();
-            //printLog("addStudent:\n" + result);
             return isDone;
         }
         catch (IOException e)
         {
-            //printLog("addStudent Exception:\n" + e);
             return false;
         }
     }
@@ -129,29 +113,6 @@ public class MySQL_DBManager implements DB_manager {
     @Override
     public boolean addOrder(final ContentValues values)
     {
-        /*final Boolean[] isDone = new Boolean[1];
-        new AsyncTask<Void,Void,Boolean>(){
-            @Override
-            protected void onPostExecute(Boolean aBoolean) {
-                super.onPostExecute(aBoolean);
-                isDone[0] = aBoolean;
-            }
-
-            @Override
-            protected Boolean  doInBackground(Void... params)
-            {
-                try
-                {
-                    String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
-                    return Boolean.parseBoolean(result);
-                }
-                catch (IOException e)
-                {
-                    return false;
-                }
-            }
-        }.execute();
-        return isDone[0];*/
         try
         {
             String result = PHPtools.POST(WEB_URL + "/addOrder.php", values);
@@ -297,6 +258,7 @@ public class MySQL_DBManager implements DB_manager {
     @Override
     public ArrayList<Order> getOrdersFromServer()
     {
+
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
@@ -354,7 +316,6 @@ public class MySQL_DBManager implements DB_manager {
         ArrayList<Car> AvailableCars= getCars();
         for (final Order item : getOrdersFromServer())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
-                // AvailableCars.removeIf(p -> p.getCarNumber()== item.getCarNumber());///?????????????????????????????????
                 Car c=getCarByID(item.getCarNumber());
                 AvailableCars.remove(c);
             }
@@ -381,7 +342,7 @@ public class MySQL_DBManager implements DB_manager {
          * @return list of orders
          */
         ArrayList<Order> OpenOrders =new ArrayList<Order>();
-        for (Order item : getOrders())
+        for (Order item : getOrdersFromServer())
             if (item.getOrderStatus()== Enums.OrderStatus.OPEN) {
                 OpenOrders.add(item);
             }
@@ -421,6 +382,7 @@ public class MySQL_DBManager implements DB_manager {
     @Override
     public Order getOpenOrderByCustomer(int currentCustomer)
     {
+        getOrdersFromServer();
         if(currentCustomer== -1)
             return null;
         for( Order orderOpen : getOpenOrders())

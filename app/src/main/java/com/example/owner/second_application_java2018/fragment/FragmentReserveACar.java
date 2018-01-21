@@ -35,6 +35,8 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     @Override
     public void onStart() {
         super.onStart();
+        //manager.getOrdersFromServer();
+        //manager.getCarsFromServer();
         try
         {
             if (!isNetworkConnected())
@@ -96,5 +98,6 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
         expandableListView.setAdapter(adapterExList);
         return false;
     }
+
 
 }

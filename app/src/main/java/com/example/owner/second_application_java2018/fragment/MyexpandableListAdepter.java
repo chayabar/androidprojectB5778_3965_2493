@@ -1,7 +1,9 @@
 package com.example.owner.second_application_java2018.fragment;
 
+import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
@@ -130,11 +132,10 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         return false;
     }
 
-
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
-        View header;
+        View header=null;
         if(mType.compareTo(branchTag)==0)
         {
 
@@ -150,13 +151,11 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             header = activity.getLayoutInflater().inflate(R.layout.header_car, parent, false);
             Car c = tempCar.get(groupPosition);
             TextView branchAddress = (TextView) header.findViewById(R.id.branchAddressTextView);
-            String bAddress=manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
+            String bAddress = manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
             branchAddress.setText(bAddress);
             TextView companyName = (TextView) header.findViewById(R.id.companyNameTextView);
-            String cName=manager.getCarModelByID(c.getModelCode()).getCompanyName();
+            String cName = manager.getCarModelByID(c.getModelCode()).getCompanyName();
             companyName.setText(cName);
-        }else {
-            header = null;
         }
         return header;
     }
@@ -318,43 +317,32 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             valuesOrder.setEndMileAge(selectedCar.getMileAge());
             valuesOrder.setFuelFilling(false);
             final ContentValues cv=RentConst.OrderToContentValues(valuesOrder);
-            //manager.addOrder(cv);
 
             new AsyncTask<Void, Void, Boolean>() {
                 @Override
                 protected void onPostExecute(Boolean idResult) {
                     super.onPostExecute(idResult);
-                    if (idResult == true)
 
-                        Toast.makeText(activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
                 }
                 @Override
                 protected Boolean doInBackground(Void... params) {
                     return manager.addOrder(cv);
                 }
             }.execute();
-            manager.getOrdersFromServer();
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+            builder.setTitle("order opened");
+            builder.setMessage("you can see your reservation in 'your reservation' section");
+            builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {}
+            });
+            builder.create().show();
 
             FragmentTransaction ft=fragment.getActivity().getSupportFragmentManager().beginTransaction();
             ft.remove(fragment);
             ft.commit();
-            /*Bundle bundle = new Bundle();
-            bundle.putInt("current customer", currentCustomer);
-            Fragment mfragment = new YourReservationFragment();
-            mfragment.setArguments(bundle);
-            ft=activity.getSupportFragmentManager().beginTransaction();
-            ft.replace(R.id.content, mfragment);
-            ft.commit();*/
 
-
-            //Toast.makeText(this.activity, "we opened for you reservation, you can see it in 'your reservation'", Toast.LENGTH_LONG).show();
-
-            /*FragmentTransaction ft;
-            Fragment fragment;
-            fragment = new FragmentBranches();
-            ft = this.activity.getFragmentManager().beginTransaction();
-            ft.replace(R.id.content, fragment);
-            ft.commit();*/
 
         }
     }

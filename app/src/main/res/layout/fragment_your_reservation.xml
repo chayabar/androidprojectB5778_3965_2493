@@ -22,62 +22,65 @@
         android:layout_marginBottom="29dp"
         app:layout_constraintLeft_toLeftOf="parent" />
 
+
     <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:text="enter your kilometrage:"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintTop_creator="1"
-        android:layout_marginTop="8dp"
-        tools:layout_constraintLeft_creator="1"
+        android:id="@+id/reservationInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="reservation information:"
+        android:textSize="20dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/KilometrageEditText"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent" />
+
+    <TextView
+        android:id="@+id/KilometrageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:gravity="center"
+        android:text="enter your mileage:"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        app:layout_constraintBottom_toTopOf="@+id/FuelFillingCheckBox"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/KilometrageEditText" />
+        app:layout_constraintRight_toLeftOf="@+id/KilometrageEditText"
+        app:layout_constraintTop_toBottomOf="@id/reservationInfo" />
 
     <EditText
         android:id="@+id/KilometrageEditText"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="numberDecimal"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="@+id/fuelLitterEditText"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="130dp"
-        app:layout_constraintLeft_toLeftOf="@+id/fuelLitterEditText" />
+        app:layout_constraintTop_toBottomOf="@id/reservationInfo"
+        app:layout_constraintBottom_toTopOf="@+id/FuelFillingCheckBox"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/KilometrageTextView" />
+
 
     <CheckBox
-        android:id="@+id/fuelFillingCheckBox"
+        android:id="@+id/FuelFillingCheckBox"
         android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:text="Fuel Filling "
+        android:layout_height="35dp"
         android:textAppearance="@android:style/TextAppearance.Material.Medium"
-        android:layout_marginStart="16dp"
-        tools:layout_constraintTop_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toBottomOf="@+id/fuelLitterEditText"
-        android:layout_marginTop="4dp"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/fuelLitterEditText" />
+        android:text="Fuel Filling "
+        app:layout_constraintBottom_toTopOf="@+id/closeReservationButton"
+        app:layout_constraintTop_toBottomOf="@+id/KilometrageEditText"
+        app:layout_constraintRight_toLeftOf="@+id/FuelLitterEditText"
+        app:layout_constraintLeft_toLeftOf="parent" />
 
     <EditText
-        android:id="@+id/fuelLitterEditText"
+        android:id="@+id/FuelLitterEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:hint="Number of litters filled"
         android:inputType="numberDecimal"
-        android:layout_marginStart="9dp"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintBottom_creator="1"
-        app:layout_constraintBottom_toTopOf="@+id/KilometrageEditText"
+        app:layout_constraintBottom_toTopOf="@+id/closeReservationButton"
+        app:layout_constraintTop_toBottomOf="@+id/KilometrageEditText"
         app:layout_constraintRight_toRightOf="parent"
-        tools:layout_constraintLeft_creator="1"
-        android:layout_marginBottom="23dp"
-        app:layout_constraintLeft_toRightOf="@+id/textView" />
+        app:layout_constraintLeft_toRightOf="@+id/FuelFillingCheckBox" />
+
+
 
 </android.support.constraint.ConstraintLayout>

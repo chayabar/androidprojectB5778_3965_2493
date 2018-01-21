@@ -26,6 +26,7 @@ import com.example.owner.second_application_java2018.fragment.FragmentReserveACa
 import com.example.owner.second_application_java2018.fragment.YourReservationFragment;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
+import com.example.owner.second_application_java2018.model.datasource.ForegroundServiceCarStatusChange;
 
 
 public class MainNavigationActivity extends AppCompatActivity
@@ -41,6 +42,7 @@ public class MainNavigationActivity extends AppCompatActivity
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        startService(new Intent(getBaseContext(), ForegroundServiceCarStatusChange.class));
 
         currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
 
