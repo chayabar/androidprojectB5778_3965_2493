@@ -35,9 +35,9 @@ public class MySQL_DBManager implements DB_manager {
     private String WEB_URL = "http://avichzer.vlab.jct.ac.il/rentPHP";
     final ArrayList<CarModel> CarModelList = new ArrayList<CarModel>();
     final ArrayList<Customer> CustomerList = new ArrayList<Customer>();
-    final ArrayList<Car> CarList = new ArrayList<Car>();
+    ArrayList<Car> CarList = new ArrayList<Car>();
     final ArrayList<Branch> BranchList = new ArrayList<Branch>();
-    final ArrayList<Order> OrderList = new ArrayList<Order>();
+    ArrayList<Order> OrderList = new ArrayList<Order>();
 
     @Override
     public boolean existCustomer(ContentValues newcustomer) {
@@ -190,6 +190,7 @@ public class MySQL_DBManager implements DB_manager {
 
     public ArrayList<Car> getCarsFromServer()
     {
+        final ArrayList<Car> tempCar=new ArrayList<Car>();
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
@@ -202,12 +203,13 @@ public class MySQL_DBManager implements DB_manager {
                         JSONObject jsonObject = array.getJSONObject(i);
                         ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
                         Car car = RentConst.ContentValuesToCar(contentValues);
-                        CarList.add(car);
+                        tempCar.add(car);
                     }
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+                CarList=tempCar;
                 return null;
             }
         }.execute();
@@ -259,6 +261,7 @@ public class MySQL_DBManager implements DB_manager {
     public ArrayList<Order> getOrdersFromServer()
     {
 
+        final ArrayList<Order> tempOrder=new ArrayList<Order>();
         new AsyncTask<Void,Void,Void>(){
             @Override
             protected Void  doInBackground(Void... params)
@@ -271,12 +274,13 @@ public class MySQL_DBManager implements DB_manager {
                         JSONObject jsonObject = array.getJSONObject(i);
                         ContentValues contentValues = PHPtools.JsonToContentValues(jsonObject);
                         Order order = RentConst.ContentValuesToOrder(contentValues);
-                        OrderList.add(order );
+                        tempOrder.add(order );
                     }
                 }
                 catch (Exception e) {
                     e.printStackTrace();
                 }
+                OrderList=tempOrder;
                 return null;
             }
         }.execute();
