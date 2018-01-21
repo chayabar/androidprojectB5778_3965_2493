@@ -1,6 +1,7 @@
 package com.example.owner.second_application_java2018.controller;
 
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
@@ -27,6 +28,7 @@ import com.example.owner.second_application_java2018.fragment.YourReservationFra
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.datasource.ForegroundServiceCarStatusChange;
+import com.example.owner.second_application_java2018.model.datasource.MyReceiver;
 
 
 public class MainNavigationActivity extends AppCompatActivity
@@ -43,8 +45,9 @@ public class MainNavigationActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         startService(new Intent(getBaseContext(), ForegroundServiceCarStatusChange.class));
+        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_TIME_TICK));
 
-        currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
+                currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
 
 
 //service service started if something cahnged sends broadcast

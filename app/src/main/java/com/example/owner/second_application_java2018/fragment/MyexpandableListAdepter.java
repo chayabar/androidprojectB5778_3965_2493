@@ -355,11 +355,11 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             return;
         }
 
-        int totalHeight = 150;
+        int totalHeight = 10;
         for (int i = 0; i < listAdapter.getCount(); i++) {
             View listItem = listAdapter.getView(i, null, listView);
-            listItem.measure(0, 80);
-            totalHeight += listItem.getMeasuredHeight();
+            listItem.measure(0, 120);
+            totalHeight += 120;
         }
 
         ViewGroup.LayoutParams params = listView.getLayoutParams();
