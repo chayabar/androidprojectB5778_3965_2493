@@ -33,6 +33,8 @@ import com.example.owner.second_application_java2018.model.datasource.MyReceiver
 
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+    IntentFilter intent;
+    MyReceiver reciver;
     boolean doubleBackToExitPressedOnce = false;
 
     int currentCustomer=-1;
@@ -45,13 +47,18 @@ public class MainNavigationActivity extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        Intent intent = new Intent(this, ForegroundServiceCarStatusChange.class);
+        /*Intent intent = new Intent(this, ForegroundServiceCarStatusChange.class);
         startService(intent);
 
-        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_BOOT_COMPLETED));
+        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_BOOT_COMPLETED));*/
+        intent= new IntentFilter();
+        reciver= new MyReceiver();
+        intent.addAction("INVITATION_SET");
+        Intent serviceIntent=new Intent(getBaseContext(), ForegroundServiceCarStatusChange.class);
+        startService(serviceIntent);
+        registerReceiver(reciver, intent);
 
         currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
-
 
         //service service started if something cahnged sends broadcast
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -79,6 +86,8 @@ public class MainNavigationActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
+
+
     }
 
     @Override
