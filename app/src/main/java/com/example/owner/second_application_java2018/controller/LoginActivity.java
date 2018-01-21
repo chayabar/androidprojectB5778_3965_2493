@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -25,6 +27,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViews();
+        //enableLogin();
         DB_manager manager=DBManagerFactory.getManager();
         manager.getCustomers();
         manager.getBranchs();
@@ -75,6 +78,10 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         forgotPasswordButton.setOnClickListener( this );
         registButton.setOnClickListener( this );
         guestButton.setOnClickListener( this );
+        /*userNameEditText.addTextChangedListener(new TextWatcher();*/
+
+
+
     }
 
     /**
@@ -90,6 +97,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             checkSharedPreferences();
         } else if ( v == forgotPasswordButton ) {
             // Handle clicks for forgotPasswordButton
+            Toast.makeText(this, "Your password is your ID :-) ", Toast.LENGTH_LONG).show();
         } else if ( v == registButton ) {
             Intent intent = new Intent(LoginActivity.this,addCustomerActivity.class);
             startActivity(intent);
@@ -150,6 +158,26 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                 Toast.makeText(this, "load id", Toast.LENGTH_SHORT).show();
             }
         }
+    }
+
+    private void enableLogin(){
+        if(TextUtils.isEmpty(userNameEditText.getText().toString())) {
+            userNameEditText.setError("This field can not be empty");
+            loginButton.setEnabled(false);
+
+        }
+        else {
+            loginButton.setEnabled(true);
+        }
+        if(TextUtils.isEmpty(passwordEditText.getText().toString())) {
+            passwordEditText.setError("This field can not be empty");
+            loginButton.setEnabled(false);
+
+        }
+        else {
+            loginButton.setEnabled(true);
+        }
+
     }
 }
 

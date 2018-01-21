@@ -82,6 +82,10 @@ public class MainNavigationActivity extends AppCompatActivity
     }
 
     @Override
+    /**This method is used to back to main navigation or
+     * if was duble click move to login activity.
+     * @return void
+     */
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
@@ -142,7 +146,7 @@ public class MainNavigationActivity extends AppCompatActivity
         bundle.putInt("current customer", currentCustomer);
 
         if (id == R.id.nav_contactUs) {
-            // Handle the camera action
+
             fragment = new ContactFragment();
             ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);

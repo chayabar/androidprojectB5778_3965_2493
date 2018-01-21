@@ -53,7 +53,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     private ArrayList<Car> tempCar;
     FragmentActivity activity;
     Fragment fragment;
-    ArrayAdapter<Integer> adapterCars;
+    ArrayAdapter<String> adapterCars;
     private String mType;
     Car selectedCar=null;
     int currentCustomer=-1;
@@ -201,13 +201,13 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
             ListView listCars = (ListView) item.findViewById(R.id.listCars);
             final ArrayList<Car> CarsInBranch = manager.getAvailableCarsByBranch(b.getBranchNumber());
-            final ArrayList<Integer> namesA = new ArrayList<>();
+            final ArrayList<String> namesA = new ArrayList<>();
 
             for (Car a : CarsInBranch)
-                namesA.add(a.getModelCode());
+                namesA.add(manager.getCarModelByID(a.getModelCode()).getCompanyName());
 
             final Context context = activity.getApplicationContext();
-            adapterCars = new ArrayAdapter<Integer>(context,android.R.layout.simple_expandable_list_item_1, namesA);
+            adapterCars = new ArrayAdapter<String>(context,android.R.layout.simple_expandable_list_item_1, namesA);
 
 
             listCars.setAdapter(adapterCars);
@@ -284,7 +284,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     @Override
     public void notifyDataSetInvalidated()
     {
-        //no agency founs as matching the query
+        //no  branch founs as matching the query
         super.notifyDataSetInvalidated();
         if(mType.compareTo(branchTag)==0)
         {
