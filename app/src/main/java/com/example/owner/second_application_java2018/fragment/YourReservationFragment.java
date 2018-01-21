@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.text.Editable;
@@ -132,6 +133,7 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
             }.execute();
 
             manager.getOrdersFromServer();
+            SystemClock.sleep(500);
             Order order=manager.getOrderByID(orderID);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("order closed");
