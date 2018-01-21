@@ -24,12 +24,9 @@ public class MyReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         // TODO: This method is called when the BroadcastReceiver is receiving
-        Context c=context;
-        if (intent.getAction().matches("com.example.owner.second_application_java2018")) {
-            Toast.makeText(c, "orders and cars being updated by receiver", Toast.LENGTH_LONG).show();
-            manager.getOrdersFromServer();
-            manager.getCarsFromServer();
-        }
+        Toast.makeText(context, "orders and cars being updated by receiver", Toast.LENGTH_LONG).show();
+        manager.getOrdersFromServer();
+        manager.getCarsFromServer();
 
 
     }

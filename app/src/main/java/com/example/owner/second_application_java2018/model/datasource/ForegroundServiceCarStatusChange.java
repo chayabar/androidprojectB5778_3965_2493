@@ -39,7 +39,8 @@ public class ForegroundServiceCarStatusChange extends IntentService {
                     {
                         //old order is close now, update cars- more cars available
                         sendToUpdate=true;
-                        Intent intent1 = new Intent("com.example.owner.second_application_java2018");
+                        Intent intent1 = new Intent();
+                        intent1.setAction("INVITATION_SET");
                         ForegroundServiceCarStatusChange.this.sendBroadcast(intent1);
                     }
                 }
@@ -48,7 +49,7 @@ public class ForegroundServiceCarStatusChange extends IntentService {
                         if (!oldOpenOrders.contains(myOrder)) {
                             //new order is opened, update cars- less cars available
                             Intent intent1 = new Intent("com.example.owner.second_application_java2018");
-                            ForegroundServiceCarStatusChange.this.sendBroadcast(intent1);
+                            sendBroadcast(intent1);
                         }
                     }
                 }
