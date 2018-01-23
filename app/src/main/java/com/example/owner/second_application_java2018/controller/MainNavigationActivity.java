@@ -30,38 +30,38 @@ import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.datasource.ForegroundServiceCarStatusChange;
 import com.example.owner.second_application_java2018.model.datasource.MyReceiver;
 
+/**
+ * this is the main navigation class
+ * the navigation have 5 option
+ * if the customer logged in with his account all the option enables, if not cant order a car
+ */
 
 public class MainNavigationActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
-    IntentFilter intent;
-    MyReceiver reciver;
+    IntentFilter intent;  //variable for intent
+    MyReceiver reciver;  //variable for receiver
     boolean doubleBackToExitPressedOnce = false;
 
-    int currentCustomer=-1;
-    DB_manager manager=DBManagerFactory.getManager();
+    int currentCustomer=-1;  //default value, if not logged in
+    DB_manager manager=DBManagerFactory.getManager();  //get implementation of DBManager
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {  //method OnCreate is activated on the creation of this navigation
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_navigation);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        /*Intent intent = new Intent(this, ForegroundServiceCarStatusChange.class);
-        startService(intent);
-
-        registerReceiver(new MyReceiver(), new IntentFilter(Intent.ACTION_BOOT_COMPLETED));*/
-        intent= new IntentFilter();
+        intent= new IntentFilter();  //set the service and receiver
         reciver= new MyReceiver();
         intent.addAction("INVITATION_SET");
         Intent serviceIntent=new Intent(getBaseContext(), ForegroundServiceCarStatusChange.class);
         startService(serviceIntent);
         registerReceiver(reciver, intent);
 
-        currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);
+        currentCustomer = getIntent().getIntExtra("EXTRA_USER_ID", -1);  //set user ID with default of -1
 
-        //service service started if something cahnged sends broadcast
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);  //define the action for the fab button (send mail)
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,7 +114,7 @@ public class MainNavigationActivity extends AppCompatActivity
             public void run() {
                 doubleBackToExitPressedOnce=false;
             }
-        }, 2000);
+        }, 2000);  //2 clicks in time frame of 2 min
     }
 
     @Override
@@ -151,17 +151,18 @@ public class MainNavigationActivity extends AppCompatActivity
         int id = item.getItemId();
         FragmentTransaction ft;
         Fragment fragment;
-        Bundle bundle = new Bundle();
+        Bundle bundle = new Bundle();   //define bundle with the user ID, used to send to fragments
         bundle.putInt("current customer", currentCustomer);
 
         if (id == R.id.nav_contactUs) {
-
+            //show fragment of contact us
             fragment = new ContactFragment();
             ft = getSupportFragmentManager().beginTransaction();
             ft.replace(R.id.content, fragment);
             ft.commit();
 
         } else if (id == R.id.nav_branches) {
+            //show fragment of all branches
             fragment = new FragmentBranches();
             fragment.setArguments(bundle);
             ft = getSupportFragmentManager().beginTransaction();
@@ -169,10 +170,10 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
 
         } else if (id == R.id.nav_reserveAcar) {
+            //show fragment reserve a car, only if customer logged in and do not have order already
             if (currentCustomer==-1)
             {
                 Toast.makeText(this, "In order to add a reservation, please log in", Toast.LENGTH_LONG).show();
-
             }
             else if(manager.getOpenOrderByCustomer(currentCustomer)==null) {
                 fragment = new FragmentReserveACar();
@@ -181,13 +182,13 @@ public class MainNavigationActivity extends AppCompatActivity
                 ft.replace(R.id.content, fragment);
                 ft.commit();
             }
-            else
-                Toast.makeText(this, "you already have a reservation", Toast.LENGTH_LONG).show();
-
-
-        } else if (id == R.id.nav_yourReservation) {
+            else Toast.makeText(this, "you already have a reservation", Toast.LENGTH_LONG).show();
+        }
+        else if (id == R.id.nav_yourReservation) {
+            //show fragment "your reservation", function handle the replacement
             yourReservation();
         } else if (id == R.id.nav_disconnect) {
+            //exit the program
             showDialog();
         }
 
@@ -199,8 +200,6 @@ public class MainNavigationActivity extends AppCompatActivity
 
     void showDialog()// for exit from the application
     {
-        //mStackLevel++;
-
         // DialogFragment.show() will take care of adding the fragment
         // in a transaction.  We also want to remove any currently showing
         // dialog, so make our own transaction and take care of that here.
@@ -218,10 +217,11 @@ public class MainNavigationActivity extends AppCompatActivity
     }
 
     public void yourReservation(){
+        //if customer have open reservation show the fragment
         if(manager.getOpenOrderByCustomer(currentCustomer)!=null ) {
             FragmentTransaction ft;
             Fragment fragment;
-            Bundle bundle = new Bundle();
+            Bundle bundle = new Bundle();  //send budle with customer reservation
             bundle.putInt("current customer", currentCustomer);
             fragment = new YourReservationFragment();
             fragment.setArguments(bundle);
@@ -230,8 +230,7 @@ public class MainNavigationActivity extends AppCompatActivity
             ft.commit();
         }
         else
+            //in case the customer do not have open reservation
             Toast.makeText(this, "there is no open reservation", Toast.LENGTH_LONG).show();
-
-
     }
 }

@@ -27,8 +27,6 @@ public class MyReceiver extends BroadcastReceiver {
         Toast.makeText(context, "orders and cars being updated by receiver", Toast.LENGTH_LONG).show();
         manager.getOrdersFromServer();
         manager.getCarsFromServer();
-
-
     }
 }
 

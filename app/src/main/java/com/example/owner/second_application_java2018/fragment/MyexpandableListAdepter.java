@@ -24,7 +24,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.owner.second_application_java2018.R;
-import com.example.owner.second_application_java2018.model.backend.ArrayDataFilter;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 import com.example.owner.second_application_java2018.model.backend.ExpandableDataFilter;
@@ -40,34 +39,38 @@ import java.util.Date;
 
 
 /**
+ * this class extends BaseExpandableListAdapter, and implement filter (search view)
+ * using Tag that gets choose the right path, show the list by header- short view,
+ * in case of clicking on the father(header) show the child view and handle the action in the child if they exist (like clicking)
  * Created by User on 31/01/2017.
  */
 
 public class MyexpandableListAdepter extends BaseExpandableListAdapter implements Filterable,View.OnClickListener {
 
-    ArrayDataFilter df;
+    //define variables that will be used in this class
     ExpandableDataFilter edf;
     DB_manager manager = DBManagerFactory.getManager();
     private ExpandableListView expandableListView;
-    private ArrayList<Branch> tempBranch;
+    private ArrayList<Branch> tempBranch;  //list to hold the lists from server
     private ArrayList<Car> tempCar;
     FragmentActivity activity;
     Fragment fragment;
     ArrayAdapter<String> adapterCars;
     private String mType;
-    Car selectedCar=null;
+    Car selectedCar=null;  //save the car been ordered
     int currentCustomer=-1;
 
-    private String carTag="Cars";
+    private String carTag="Cars";  //current Tags represent different paths
     private String branchTag="Branches";
 
 
     private Button b_rentCar;
     private Button b_mapLink;
 
-
+    //constructor get listView, Tag, fragment who send here, id of current Customer
     public MyexpandableListAdepter(ExpandableListView myExpandableListView, String type, Fragment mfragment, int mcurrentCustomer)
     {
+        //put the info to local variables
         mType=type;
         expandableListView = myExpandableListView;
         activity = mfragment.getActivity();
@@ -75,17 +78,17 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         currentCustomer=mcurrentCustomer;
         if(mType.compareTo(branchTag)==0)
         {
-            tempBranch = manager.getBranchs();
+            tempBranch = manager.getBranchs();  //get branches
         }
         if(mType.compareTo(carTag)==0)
         {
-            tempCar= manager.getAvailableCars();
+            tempCar= manager.getAvailableCars();  //get available cars
         }
-
     }
 
 
     @Override
+    //return the size of item in list
     public int getGroupCount()
     {
         int returndItem;
@@ -133,23 +136,30 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
     }
 
     @Override
+    /**
+     * show view for group (father/ header/ short view)
+     * for each path, set the variables to show
+     */
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent)
     {
         View header=null;
         if(mType.compareTo(branchTag)==0)
         {
-
+            //header branch
             header = activity.getLayoutInflater().inflate(R.layout.header_branch, parent, false);
-            Branch b = tempBranch.get(groupPosition);
+            Branch b = tempBranch.get(groupPosition);  //get the branch by its index
+            //set address
             TextView address = (TextView) header.findViewById(R.id.branchAddressTextView);
-
             address.setText(b.getAddress());
+            //set parking places in branch
             TextView parking = (TextView) header.findViewById(R.id.parkingNumTextView);
             parking.setText(String.valueOf(b.getParkingSpaces()));
         }
         else if (mType.compareTo(carTag) == 0) {
+            //header car
             header = activity.getLayoutInflater().inflate(R.layout.header_car, parent, false);
-            Car c = tempCar.get(groupPosition);
+            Car c = tempCar.get(groupPosition);  //get car by its index
+            //set car's branch
             TextView branchAddress = (TextView) header.findViewById(R.id.branchAddressTextView);
             String bAddress = manager.getBranchByBranchNumber(c.getHouseBranch()).getAddress();
             branchAddress.setText(bAddress);

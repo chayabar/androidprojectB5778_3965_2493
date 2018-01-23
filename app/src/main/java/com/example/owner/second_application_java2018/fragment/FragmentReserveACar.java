@@ -16,6 +16,8 @@ import com.example.owner.second_application_java2018.model.backend.DBManagerFact
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 
 /**
+ * this fragment shows available cars for rent using MyExpandableListAdaptor class
+ * also have the option to search in results
  * Created by User on 10/01/2018.
  */
 
@@ -34,9 +36,8 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
 
     @Override
     public void onStart() {
+        //on start, check for connectivity
         super.onStart();
-        //manager.getOrdersFromServer();
-        //manager.getCarsFromServer();
         try
         {
             if (!isNetworkConnected())
@@ -49,6 +50,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     }
 
     private boolean isNetworkConnected() {
+        //check internet connection
         ConnectivityManager cm = (ConnectivityManager) this.getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
     }
@@ -56,19 +58,16 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        final Context context = getActivity().getApplicationContext();
         // Inflate the layout for this fragment
-
-        currentCustomer = getArguments().getInt("current customer");
+        currentCustomer = getArguments().getInt("current customer");  //get customer ID
         View rootView = inflater.inflate(R.layout.fragment_reserve_a_car, container, false);
         expandableListView = (ExpandableListView) rootView.findViewById(R.id.expanded_list_cars);
-
-
+        //set new adaptor with tag "Cars"
         adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", this, currentCustomer);
 
         expandableListView.setAdapter(adapterExList);
 
-        searchView = (SearchView) rootView.findViewById(R.id.search_car);
+        searchView = (SearchView) rootView.findViewById(R.id.search_car);  //define the search view, listener for text change
 
         searchView.setOnQueryTextListener(this);
         searchView.setOnCloseListener(this);
@@ -79,7 +78,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     @Override
     public boolean onQueryTextChange(String newText)
     {
-
+        //if text changes, get the new results
         adapterExList.getFilter().filter(newText);
         expandableListView.setAdapter(adapterExList);
         return true;
@@ -94,6 +93,7 @@ public class FragmentReserveACar extends Fragment implements SearchView.OnQueryT
     @Override
     public boolean onClose()
     {
+        //prepare for future use
         adapterExList = new MyexpandableListAdepter(expandableListView, "Cars", this, currentCustomer);
         expandableListView.setAdapter(adapterExList);
         return false;
