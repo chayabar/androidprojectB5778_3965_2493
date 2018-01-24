@@ -15,6 +15,7 @@ import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.RentConst;
 
+/** This class use to add new customer to the local list and to the server  */
 
 public class addCustomerActivity extends Activity implements View.OnClickListener {
 
@@ -53,7 +54,7 @@ public class addCustomerActivity extends Activity implements View.OnClickListene
             finish();
         }
     }
-    private void addCustomer() {
+    private void addCustomer() {  //Saving the inserted information
         final ContentValues contentValues = new ContentValues();
         try {
             contentValues.put(RentConst.CustomerConst.CREDITCARD, this.CreditEditText.getText().toString());
@@ -79,12 +80,12 @@ public class addCustomerActivity extends Activity implements View.OnClickListene
         catch (Exception e) {}
     }
 
-    private void saveSharedPreferences() {
+    private void saveSharedPreferences() {//Saving the user name and password
         try {
             SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            String name = LastNameEditText.getText().toString();
-            int id = Integer.parseInt(IDEditText.getText().toString());
+            String name = LastNameEditText.getText().toString();//user name is customer last name
+            int id = Integer.parseInt(IDEditText.getText().toString());//password is customer id
             editor.putString("NAME", name);
             editor.putInt("ID", id);
             editor.commit();

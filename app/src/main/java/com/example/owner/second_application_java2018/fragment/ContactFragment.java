@@ -13,8 +13,8 @@ import android.widget.ImageButton;
 
 import com.example.owner.second_application_java2018.R;
 
-/**
- * A simple {@link Fragment} subclass.
+/** This class fragment use to get the user option to contact the company and
+ * links it to the appropriate apps to create the context according to the user selection.
  */
 public class ContactFragment extends Fragment implements View.OnClickListener  {
 
@@ -75,17 +75,17 @@ public class ContactFragment extends Fragment implements View.OnClickListener  {
         }
     }
 
-public void phoneCall()
+public void phoneCall() // make a phone call via implicit intent.
 {
-    Uri number=Uri.parse("tel:0525857646");
+    Uri number=Uri.parse("tel:0525857646");//dial to this number
     Intent callIntent = new Intent(Intent.ACTION_DIAL, number);
     startActivity(callIntent);
     return;
 }
 
-public void sendingMail()
+public void sendingMail()  //send E-mail via implicit intent.
 {
-    String to="sarush1111@gmail.com";
+    String to="sarush1111@gmail.com";// send to this email address
 
     Intent email = new Intent(Intent.ACTION_SEND);
     email.putExtra(Intent.EXTRA_EMAIL, new String[]{ to});
@@ -96,7 +96,7 @@ public void sendingMail()
     startActivity(Intent.createChooser(email, "Choose an Email client :"));
 }
 
-public void websiteView()
+public void websiteView()  // move to website via webView.
 {
     Intent intent=new Intent(getActivity(),WebViewActivity.class);
     startActivity(intent);

@@ -19,7 +19,7 @@ import com.example.owner.second_application_java2018.R;
 import com.example.owner.second_application_java2018.model.backend.DBManagerFactory;
 import com.example.owner.second_application_java2018.model.backend.DB_manager;
 
-//
+/** This class use to log-in and enter to this app  */
 public class LoginActivity extends Activity implements View.OnClickListener {
 
     @Override
@@ -27,7 +27,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         findViews();
-        //enableLogin();
         DB_manager manager=DBManagerFactory.getManager();
         manager.getCustomers();
         manager.getBranchs();
@@ -35,14 +34,6 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         manager.getCarModels();
         manager.getOrders();
         loadSharedPreferences();
-        //SystemClock.sleep(7000);
-
-        /*final ContentValues contentValues = new ContentValues();
-        contentValues.put(RentConst.BranchConst.BRANCHNUMBER, "100");
-        contentValues.put(RentConst.BranchConst.PARKINGSPACES, "3");
-        contentValues.put(RentConst.BranchConst.ADDRESS, "kanfei nesharim 12, jerusalem, Israel");
-        DBManagerFactory.getManager().addBranch(contentValues);*/
-
     }
 
     private EditText passwordEditText;
@@ -138,7 +129,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
 
 
     }
-    /**This method is used to Load the last login and password entered and saved
+    /**This method is used to Load the last login name and password entered and saved
      * in the system.
      * @return void
      */
@@ -160,24 +151,5 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
     }
 
-    private void enableLogin(){
-        if(TextUtils.isEmpty(userNameEditText.getText().toString())) {
-            userNameEditText.setError("This field can not be empty");
-            loginButton.setEnabled(false);
-
-        }
-        else {
-            loginButton.setEnabled(true);
-        }
-        if(TextUtils.isEmpty(passwordEditText.getText().toString())) {
-            passwordEditText.setError("This field can not be empty");
-            loginButton.setEnabled(false);
-
-        }
-        else {
-            loginButton.setEnabled(true);
-        }
-
-    }
 }
 

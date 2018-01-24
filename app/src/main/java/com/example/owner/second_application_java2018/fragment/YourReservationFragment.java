@@ -26,6 +26,7 @@ import com.example.owner.second_application_java2018.model.entities.Order;
 
 /**
  * A simple {@link Fragment} subclass.
+ * use to see and close the user's current reservation.
  */
 public class YourReservationFragment extends Fragment implements View.OnClickListener  {
 
@@ -133,7 +134,7 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
             }.execute();
 
             manager.getOrdersFromServer();
-            SystemClock.sleep(500);
+            SystemClock.sleep(500);// Give time to download the list from the server.
             Order order=manager.getOrderByID(orderID);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setTitle("order closed");

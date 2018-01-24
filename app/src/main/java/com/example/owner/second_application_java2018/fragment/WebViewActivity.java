@@ -7,7 +7,7 @@ import android.webkit.WebView;
 
 import com.example.owner.second_application_java2018.R;
 
-
+/**This class use to show website */
 public class WebViewActivity extends Activity {
 
     private boolean flag=false;

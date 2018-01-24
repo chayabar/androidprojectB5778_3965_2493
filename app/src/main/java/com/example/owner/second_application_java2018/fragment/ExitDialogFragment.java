@@ -13,6 +13,8 @@ import android.support.v7.app.AlertDialog;
  * Created by User on 27 Tevet 5778.
  */
 
+/** This class use to show message(dialog) before user signing out of the app  */
+
 public class ExitDialogFragment extends DialogFragment
 {
     int mNum;
