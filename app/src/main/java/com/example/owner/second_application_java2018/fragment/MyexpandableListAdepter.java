@@ -177,7 +177,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         View item=null;
 
         if(mType.compareTo(branchTag)==0)
-        {
+        {   //Shows the list of branches
 
             item= activity.getLayoutInflater().inflate(R.layout.fragment_item_branch, parent, false);
             final Branch b = tempBranch.get(groupPosition);
@@ -186,21 +186,23 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             TextView branchNumber;
             TextView Address;
             TextView parkingSpaces;
-
+            //set branch number
             branchNumber= (TextView) item.findViewById(R.id.branchNumber);
             branchNumber.setText(branchNumber.getText() + ": " + b.getBranchNumber());
+            //set address
             Address = (TextView) item.findViewById(R.id.Address);
             Address.setText(Address.getText() + ": " + b.getAddress().toString());
+            //set parking places in branch
             parkingSpaces = (TextView) item.findViewById(R.id.parkingSpaces);
             parkingSpaces.setText(parkingSpaces.getText() + ": " + b.getParkingSpaces());
+            //Go to Google Maps with the branch address
             b_mapLink = (Button) item.findViewById(R.id.b_mapLink);
-
             b_mapLink.setOnClickListener(this);
             b_mapLink.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     String a=b.getAddress();
-                    String[] separate = a.split(",");// scity,street,number
+                    String[] separate = a.split(",");// format: city,street,number
                     String address = separate[0]+","+separate[1]+","+separate[2];// city,street,number
                     String url = "http://maps.google.com/maps?daddr=" + address;
                     Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
@@ -212,9 +214,9 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
             ListView listCars = (ListView) item.findViewById(R.id.listCars);
             final ArrayList<Car> CarsInBranch = manager.getAvailableCarsByBranch(b.getBranchNumber());
             final ArrayList<String> namesA = new ArrayList<>();
-
+            //show the available cars list in the current branch
             for (Car a : CarsInBranch)
-                namesA.add(manager.getCarModelByID(a.getModelCode()).getCompanyName());
+                namesA.add(manager.getCarModelByID(a.getModelCode()).getCompanyName());//Displays the company name of the car
 
             final Context context = activity.getApplicationContext();
             adapterCars = new ArrayAdapter<String>(context,android.R.layout.simple_expandable_list_item_1, namesA);
@@ -226,23 +228,24 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
         }
         else {
             if (mType.compareTo(carTag) == 0) {
+                //Shows the list of cars available for rent
                 item = activity.getLayoutInflater().inflate(R.layout.fragment_item_car, parent, false);
                 selectedCar = tempCar.get(groupPosition);
-
+                //set address of the branch of the car
                 TextView branchAddress = (TextView) item.findViewById(R.id.branchAddress);
                 String bAddress=manager.getBranchByBranchNumber(selectedCar.getHouseBranch()).getAddress();
                 branchAddress.setText(branchAddress.getText() + " : " + bAddress);
-
+                // set car company name
                 TextView companyName = (TextView) item.findViewById(R.id.companyName);
                 String cName=manager.getCarModelByID(selectedCar.getModelCode()).getCompanyName();
                 companyName.setText(companyName.getText() + " : " + cName);
-
+                // set mile age
                 TextView mileAge =(TextView) item.findViewById(R.id.mileAge);
                 mileAge.setText(mileAge.getText() + " : " + String.valueOf(selectedCar.getMileAge()));
-
+                // set car identification number
                 TextView carNumber =(TextView) item.findViewById(R.id.carNumber);
                 carNumber.setText(carNumber.getText() + " : " + String.valueOf(selectedCar.getCarNumber()));
-
+                // go to order the current car
                 b_rentCar = (Button) item.findViewById(R.id.buttonRent);
                 b_rentCar.setOnClickListener(this);
 
@@ -261,7 +264,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
 
     @Override
     public Filter getFilter()
-    {
+    { //Search sub word in the lists
         if (edf == null)
         {
             if(mType.compareTo(branchTag)==0)
@@ -339,7 +342,7 @@ public class MyexpandableListAdepter extends BaseExpandableListAdapter implement
                     return manager.addOrder(cv);
                 }
             }.execute();
-
+            //Displays a message to the customer that his order was carried out
             AlertDialog.Builder builder = new AlertDialog.Builder(activity);
             builder.setTitle("order opened");
             builder.setMessage("you can see your reservation in 'your reservation' section");

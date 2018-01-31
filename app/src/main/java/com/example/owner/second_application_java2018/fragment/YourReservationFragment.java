@@ -44,7 +44,8 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        currentCustomer = getArguments().getInt("current customer");
+        currentCustomer = getArguments().getInt("current customer");//Locates a customer based on user information entered in login;
+        //Importing the customer's current order information.
         final float startMileAge=manager.getOpenOrderByCustomer(currentCustomer).getStartMileAge();
 
         Order nowOrder=manager.getOpenOrderByCustomer(currentCustomer);
@@ -52,7 +53,7 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
         TextView helloUser= (TextView) rootView.findViewById(R.id.reservationInfo);
         android.text.format.DateFormat df = new android.text.format.DateFormat();
         helloUser.setText("hello, your order number "+nowOrder.getOrderID()+"\nfrom date "+df.format("yyyy-MM-dd hh:mm:ss",
-                nowOrder.getStartRent()).toString()+"\nwith start mile age of "+nowOrder.getStartMileAge());
+        nowOrder.getStartRent()).toString()+"\nwith start mile age of "+nowOrder.getStartMileAge());
         closeReservationButton=(Button)rootView.findViewById( R.id.closeReservationButton);
         KilometrageEditText= (EditText)rootView.findViewById(R.id.KilometrageEditText);
         fuelFillingCheckBox= (CheckBox)rootView.findViewById(R.id.FuelFillingCheckBox);
@@ -70,6 +71,7 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //Allows the button only when the total number of kilometers is greater than  the initial mileage
                 if(s.toString().trim().length()==0 || Float.valueOf(s.toString().trim())<startMileAge){
                     closeReservationButton.setEnabled(false);
                 }
@@ -128,15 +130,17 @@ public class YourReservationFragment extends Fragment implements View.OnClickLis
 
                 @Override
                 protected Boolean doInBackground(Void... params) {
+                    //Updates the order with the entered information and closes it;
                     return manager.closeExistOrder(orderID, kilometrage, fuelFilling, fuelLitter);
 
                 }
             }.execute();
 
-            manager.getOrdersFromServer();
+            manager.getOrdersFromServer();//Re-download the list of orders following the change
             SystemClock.sleep(500);// Give time to download the list from the server.
             Order order=manager.getOrderByID(orderID);
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            //Displays a notification to the customer that the order has been closed with the final payment
             builder.setTitle("order closed");
             builder.setMessage("Final payment: " + order.getCharge() + " Thank You for choosing Take&Go");
             builder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
