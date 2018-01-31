@@ -398,7 +398,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter//update and close order
+    public boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter)//update and close order
     {
         Order order=getOrderByID(orderId);
         if (order!= null)
