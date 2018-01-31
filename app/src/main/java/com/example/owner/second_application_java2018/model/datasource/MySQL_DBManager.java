@@ -40,7 +40,7 @@ public class MySQL_DBManager implements DB_manager {
     ArrayList<Order> OrderList = new ArrayList<Order>();
 
     @Override
-    public boolean existCustomer(ContentValues newcustomer) {
+    public boolean existCustomer(ContentValues newcustomer) {//Check whether the customer exists in the lists
         Customer customer = ContentValuesToCustomer(newcustomer);
         for (Customer item : getCustomers())
             if (item.getID() == customer.getID()) {
@@ -50,7 +50,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean addCustomer(ContentValues values)
+    public boolean addCustomer(ContentValues values)//add customer to the list
     {
         try
         {
@@ -65,7 +65,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean addCarModel(ContentValues values)
+    public boolean addCarModel(ContentValues values)// add car model to the list
     {
         try
         {
@@ -80,7 +80,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean addCar(ContentValues values)
+    public boolean addCar(ContentValues values)// add car to the list
     {
         try
         {
@@ -95,7 +95,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean addBranch(ContentValues values)
+    public boolean addBranch(ContentValues values)// add branch to the list
     {
         try
         {
@@ -111,7 +111,7 @@ public class MySQL_DBManager implements DB_manager {
 
 
     @Override
-    public boolean addOrder(final ContentValues values)
+    public boolean addOrder(final ContentValues values)//add order to the orders list
     {
         try
         {
@@ -126,7 +126,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<Customer> getCustomers()
+    public ArrayList<Customer> getCustomers() //get customer list from the server
     {
         if(!CustomerList.isEmpty())
         {
@@ -157,7 +157,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<CarModel> getCarModels()
+    public ArrayList<CarModel> getCarModels()//get car model list from the server
     {
         if(!CarModelList.isEmpty())
         {
@@ -188,7 +188,7 @@ public class MySQL_DBManager implements DB_manager {
         return CarModelList;
     }
 
-    public ArrayList<Car> getCarsFromServer()
+    public ArrayList<Car> getCarsFromServer()//get car list from the server
     {
         final ArrayList<Car> tempCar=new ArrayList<Car>();
         new AsyncTask<Void,Void,Void>(){
@@ -217,7 +217,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<Car> getCars()
+    public ArrayList<Car> getCars()//if car list empty get car list from the server
     {
         if(CarList.isEmpty())
         {
@@ -227,7 +227,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<Branch> getBranchs()
+    public ArrayList<Branch> getBranchs()//get branch list from the server
     {
         if(!BranchList.isEmpty())
         {
@@ -258,7 +258,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<Order> getOrdersFromServer()
+    public ArrayList<Order> getOrdersFromServer()//get order list from the server
     {
 
         final ArrayList<Order> tempOrder=new ArrayList<Order>();
@@ -289,7 +289,7 @@ public class MySQL_DBManager implements DB_manager {
 
 
     @Override
-    public ArrayList<Order> getOrders()
+    public ArrayList<Order> getOrders()//if order list empty get the list from the server
     {
         if(OrderList.isEmpty())
         {
@@ -299,7 +299,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean updateCar(ContentValues values) {
+    public boolean updateCar(ContentValues values) {//update the car list in the server
         try
         {
             String result = PHPtools.POST(WEB_URL + "/updateCar.php", values);
@@ -313,7 +313,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public ArrayList<Car> getAvailableCars() {
+    public ArrayList<Car> getAvailableCars() {//return list of all the car that available for rent
         /** This method is used to check which cars are available for rent.
          * @return list of cars.
          */
@@ -355,7 +355,7 @@ public class MySQL_DBManager implements DB_manager {
 
 
     @Override
-    public boolean checkUsernameAndPassword(String lastName, int ID)
+    public boolean checkUsernameAndPassword(String lastName, int ID)//compare the user name to last name and password to his id
     {
         for(Customer item : getCustomers())
             if((item.getLastName().compareTo(lastName))==0 && (item.getID()==ID))
@@ -363,7 +363,7 @@ public class MySQL_DBManager implements DB_manager {
         return false;
     }
 
-    public Order getOrderByID( int orderID)
+    public Order getOrderByID( int orderID)//get order id return order
     {
         for(Order o : getOrders())
         {
@@ -373,7 +373,7 @@ public class MySQL_DBManager implements DB_manager {
         return null;
     }
 
-    private Car getCarByID( int carID)
+    private Car getCarByID( int carID)//get car number return car
     {
         for(Car c : getCars())
         {
@@ -384,7 +384,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public Order getOpenOrderByCustomer(int currentCustomer)
+    public Order getOpenOrderByCustomer(int currentCustomer)//get customer return his open order
     {
         getOrdersFromServer();
         if(currentCustomer== -1)
@@ -398,7 +398,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter)
+    public boolean closeExistOrder(int orderId, float km, boolean fuelFilling, float fuellitter//update and close order
     {
         Order order=getOrderByID(orderId);
         if (order!= null)
@@ -429,7 +429,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
     @Override
-    public boolean updateOrder(ContentValues values) {
+    public boolean updateOrder(ContentValues values) {//update order
         try
         {
             String result = PHPtools.POST(WEB_URL + "/updateOrder.php", values);
@@ -442,7 +442,7 @@ public class MySQL_DBManager implements DB_manager {
         }
     }
 
-    public Branch getBranchByBranchNumber(int BranchNumber){
+    public Branch getBranchByBranchNumber(int BranchNumber){//get branch number return branch
         Branch b=null;
         for (Branch br: getBranchs())
         {
@@ -453,7 +453,7 @@ public class MySQL_DBManager implements DB_manager {
     }
 
 
-    public CarModel getCarModelByID(int ID){
+    public CarModel getCarModelByID(int ID){ //get model number return car model
         for(CarModel cm : getCarModels())
         {
             if(cm.getModelCode()==ID)
